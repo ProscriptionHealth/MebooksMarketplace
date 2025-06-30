@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { BookOpenIcon } from './icons/BookOpenIcon';
 import { ChevronDownIcon } from './icons/ChevronDownIcon';
@@ -7,6 +7,7 @@ export const Header = () => {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -15,6 +16,30 @@ export const Header = () => {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+
+  const handleDropdownEnter = () => {
+    if (dropdownTimeout) {
+      clearTimeout(dropdownTimeout);
+      setDropdownTimeout(null);
+    }
+    setIsAboutDropdownOpen(true);
+  };
+
+  const handleDropdownLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsAboutDropdownOpen(false);
+    }, 200); // 200ms delay before closing
+    setDropdownTimeout(timeout);
+  };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeout) {
+        clearTimeout(dropdownTimeout);
+      }
+    };
+  }, [dropdownTimeout]);
 
   return (
     <header className="sticky top-0 z-50 bg-neural-bg/90 backdrop-blur-md border-b border-neural-tertiary">
@@ -37,33 +62,54 @@ export const Header = () => {
             {/* About Dropdown */}
             <div 
               className="relative"
-              onMouseEnter={() => setIsAboutDropdownOpen(true)}
-              onMouseLeave={() => setIsAboutDropdownOpen(false)}
+              onMouseEnter={handleDropdownEnter}
+              onMouseLeave={handleDropdownLeave}
             >
-              <button className="flex items-center space-x-1 text-text-secondary hover:text-ai-teal transition-colors">
+              <button 
+                className="flex items-center space-x-1 text-text-secondary hover:text-ai-teal transition-colors py-2 px-1"
+                onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
+              >
                 <span>About</span>
-                <ChevronDownIcon className="w-4 h-4" />
+                <ChevronDownIcon className={`w-4 h-4 transition-transform duration-200 ${isAboutDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
               {isAboutDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-neural-secondary border border-neural-tertiary rounded-lg shadow-lg">
-                  <Link 
-                    href="/about/why-we-do" 
-                    className="block px-4 py-2 text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary transition-colors"
-                  >
-                    Why We Do
-                  </Link>
-                  <Link 
-                    href="/about/what-we-do" 
-                    className="block px-4 py-2 text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary transition-colors"
-                  >
-                    What We Do
-                  </Link>
-                  <Link 
-                    href="/about/how-we-do" 
-                    className="block px-4 py-2 text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary transition-colors"
-                  >
-                    How We Do
-                  </Link>
+                <div 
+                  className="absolute top-full left-0 mt-1 w-56 bg-neural-secondary/95 backdrop-blur-sm border border-neural-tertiary rounded-lg shadow-xl z-50"
+                  onMouseEnter={handleDropdownEnter}
+                  onMouseLeave={handleDropdownLeave}
+                >
+                  <div className="py-2">
+                    <Link 
+                      href="/about/why-we-do" 
+                      className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
+                      onClick={() => setIsAboutDropdownOpen(false)}
+                    >
+                      <div className="flex items-center">
+                        <span className="font-medium">Why We Do</span>
+                      </div>
+                      <span className="text-xs text-text-muted mt-1 block">Our mission and purpose</span>
+                    </Link>
+                    <Link 
+                      href="/about/what-we-do" 
+                      className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
+                      onClick={() => setIsAboutDropdownOpen(false)}
+                    >
+                      <div className="flex items-center">
+                        <span className="font-medium">What We Do</span>
+                      </div>
+                      <span className="text-xs text-text-muted mt-1 block">Our services and offerings</span>
+                    </Link>
+                    <Link 
+                      href="/about/how-we-do" 
+                      className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
+                      onClick={() => setIsAboutDropdownOpen(false)}
+                    >
+                      <div className="flex items-center">
+                        <span className="font-medium">How We Do</span>
+                      </div>
+                      <span className="text-xs text-text-muted mt-1 block">Our process and methodology</span>
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
