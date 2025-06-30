@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeBooks.ai Logo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .logo-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 60px 80px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .brand-name {
+            background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .arrow {
+            color: #00d4ff;
+            margin: 0 25px;
+            font-size: 3rem;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .formula {
+            color: #e0e6ed;
+            font-family: 'Courier New', monospace;
+            font-size: 1.8rem;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .bracket {
+            color: #ff6b6b;
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+
+        .my-text {
+            color: #4ecdc4;
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+        }
+
+        .ebooks-text {
+            color: #ffd93d;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 217, 61, 0.3);
+        }
+
+        .dots {
+            color: #ff6b6b;
+            font-size: 2rem;
+        }
+
+        .pipe {
+            color: #00d4ff;
+            font-size: 2.2rem;
+            margin: 0 15px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .ai-text {
+            color: #ff6b6b;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #a0a6b0;
+            font-style: italic;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        .ai-emphasis {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        /* Static particles background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 60% 20%, rgba(78, 205, 196, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .logo-container {
+                padding: 40px 50px;
+            }
+            
+            .main-line {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+                margin: 15px 0;
+            }
+            
+            .formula {
+                font-size: 1.4rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="main-line">
+            <span class="brand-name">mebooks.ai</span>
+            <span class="arrow">&lt;-</span>
+            <span class="formula">
+                <span class="bracket">{</span><span class="my-text">my</span>, <span class="ebooks-text">ebooks</span><span class="dots">,...,</span><span class="pipe">|</span><span class="ai-text">ai</span><span class="pipe">|</span><span class="bracket">}</span>
+            </span>
+        </div>
+        <div class="subtitle">
+            <span class="ai-emphasis">ai</span> = set of Artificial Intelligence subject matter
+        </div>
+    </div>
+</body>
+</html>

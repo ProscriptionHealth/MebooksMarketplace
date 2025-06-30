@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(157, 100%, 42%);
+  --primary-foreground: hsl(240, 10%, 3.9%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+
+  /* AI-focused color palette */
+  --ai-teal: hsl(168, 100%, 42%);
+  --ai-blue: hsl(199, 89%, 48%);
+  --ai-purple: hsl(258, 90%, 66%);
+  --ai-amber: hsl(43, 96%, 56%);
+  --ai-pink: hsl(330, 81%, 60%);
+  
+  /* Neural network dark theme */
+  --neural-bg: hsl(240, 35%, 6%);
+  --neural-secondary: hsl(240, 35%, 11%);
+  --neural-tertiary: hsl(215, 35%, 16%);
+  
+  /* Text hierarchy */
+  --text-primary: hsl(0, 0%, 100%);
+  --text-secondary: hsl(215, 16%, 65%);
+  --text-muted: hsl(215, 20%, 46%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-neural-bg text-text-primary font-sans antialiased min-h-screen;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
+  }
+}
+
+@layer utilities {
+  .bg-neural-bg {
+    background-color: var(--neural-bg);
+  }
+  
+  .bg-neural-secondary {
+    background-color: var(--neural-secondary);
+  }
+  
+  .bg-neural-tertiary {
+    background-color: var(--neural-tertiary);
+  }
+  
+  .text-ai-teal {
+    color: var(--ai-teal);
+  }
+  
+  .text-ai-blue {
+    color: var(--ai-blue);
+  }
+  
+  .text-ai-purple {
+    color: var(--ai-purple);
+  }
+  
+  .text-ai-amber {
+    color: var(--ai-amber);
+  }
+  
+  .text-ai-pink {
+    color: var(--ai-pink);
+  }
+  
+  .text-text-primary {
+    color: var(--text-primary);
+  }
+  
+  .text-text-secondary {
+    color: var(--text-secondary);
+  }
+  
+  .text-text-muted {
+    color: var(--text-muted);
+  }
+  
+  .bg-ai-teal {
+    background-color: var(--ai-teal);
+  }
+  
+  .bg-ai-blue {
+    background-color: var(--ai-blue);
+  }
+  
+  .bg-ai-purple {
+    background-color: var(--ai-purple);
+  }
+  
+  .bg-ai-amber {
+    background-color: var(--ai-amber);
+  }
+  
+  .bg-ai-pink {
+    background-color: var(--ai-pink);
+  }
+  
+  .border-neural-tertiary {
+    border-color: var(--neural-tertiary);
+  }
+  
+  .border-ai-teal {
+    border-color: var(--ai-teal);
+  }
+  
+  .border-ai-purple {
+    border-color: var(--ai-purple);
+  }
+  
+  .hover\:text-ai-teal:hover {
+    color: var(--ai-teal);
+  }
+  
+  .hover\:bg-ai-teal\/90:hover {
+    background-color: hsl(168, 100%, 42%, 0.9);
+  }
+  
+  .hover\:bg-ai-blue\/90:hover {
+    background-color: hsl(199, 89%, 48%, 0.9);
+  }
+  
+  .hover\:bg-neural-tertiary:hover {
+    background-color: var(--neural-tertiary);
+  }
+  
+  .focus\:border-ai-teal:focus {
+    border-color: var(--ai-teal);
+  }
+  
+  .focus\:ring-ai-teal\/20:focus {
+    box-shadow: 0 0 0 3px hsl(168, 100%, 42%, 0.2);
+  }
+  
+  .bg-ai-purple\/10 {
+    background-color: hsl(258, 90%, 66%, 0.1);
+  }
+  
+  .border-ai-purple\/20 {
+    border-color: hsl(258, 90%, 66%, 0.2);
+  }
+}
+
+@layer components {
+  .animate-gradient-bg {
+    background-size: 400% 400%;
+    animation: gradient-bg 5s ease infinite;
+  }
+  
+  .animate-subtle-pulse {
+    animation: subtle-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-in-out;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes gradient-bg {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  @keyframes subtle-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  @keyframes fade-in {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+}
