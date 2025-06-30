@@ -57,13 +57,13 @@ export const Header = () => {
                   e
                   <span style={{
                     position: 'absolute',
-                    top: '-0.12em',
+                    top: '-0.06em',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    width: '0.7em',
-                    height: '2.5px',
+                    width: '0.5em',
+                    height: '2px',
                     backgroundColor: '#f59e0b',
-                    borderRadius: '1.5px'
+                    borderRadius: '1px'
                   }}></span>
                 </span>
                 books
