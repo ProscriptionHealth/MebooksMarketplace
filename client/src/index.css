@@ -165,6 +165,10 @@
   .border-ai-purple\/20 {
     border-color: hsl(258, 90%, 66%, 0.2);
   }
+  
+  .text-shadow {
+    text-shadow: 0 0 20px currentColor;
+  }
 }
 
 @layer components {

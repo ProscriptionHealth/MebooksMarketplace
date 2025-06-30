@@ -1,15 +1,15 @@
-import { Ebook, ComplexityRating, PLATFORM_FEE } from '../types';
+import { Ebook, PLATFORM_FEE } from '../types';
 
 interface EbookCardProps {
   ebook: Ebook;
 }
 
 export const EbookCard = ({ ebook }: EbookCardProps) => {
-  const complexityColors = {
-    [ComplexityRating.Beginner]: 'bg-green-500',
-    [ComplexityRating.Intermediate]: 'bg-yellow-500',
-    [ComplexityRating.Advanced]: 'bg-red-500',
-    [ComplexityRating.Research]: 'bg-purple-500'
+  const complexityColors: Record<string, string> = {
+    'beginner': 'bg-green-500',
+    'intermediate': 'bg-yellow-500',
+    'advanced': 'bg-red-500',
+    'research': 'bg-purple-500'
   };
 
   const handleAddToCart = () => {

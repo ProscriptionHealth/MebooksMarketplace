@@ -1,5 +1,30 @@
-import { GeminiSearchResponse, Ebook } from '../types';
-import { mockEbooks } from '../data/mockEbooks';
+import { GeminiSearchResponse, Ebook, DbEbook } from '../types';
+
+// Author lookup map (matches server)
+const authors: Record<number, string> = {
+  1: 'Dr. Sarah Chen',
+  2: 'Prof. Michael Rodriguez', 
+  3: 'Dr. Emma Thompson',
+  4: 'Dr. James Park',
+  5: 'Lisa Wang',
+  6: 'Dr. Robert Kim'
+};
+
+// Convert database ebook to client ebook format
+function convertDbEbookToClientEbook(dbEbook: DbEbook): Ebook {
+  return {
+    id: dbEbook.id.toString(),
+    title: dbEbook.title,
+    description: dbEbook.description,
+    author: authors[dbEbook.authorId] || `Author ${dbEbook.authorId}`,
+    price: parseFloat(dbEbook.price),
+    coverUrl: dbEbook.coverUrl || '',
+    category: dbEbook.category,
+    complexity: dbEbook.complexity,
+    frameworkTags: dbEbook.frameworkTags || [],
+    pageCount: dbEbook.pageCount || 0
+  };
+}
 
 // Mock implementation of Gemini AI service
 // In production, this would use actual Google Gemini API
@@ -25,23 +50,32 @@ export async function analyzeSearchQuery(query: string): Promise<GeminiSearchRes
   }
 }
 
-// Mock database search function
+// Database search function using backend API
 export async function findEbooksByTopics(topics: string[]): Promise<Ebook[]> {
-  // Simulate database query delay
-  await new Promise(resolve => setTimeout(resolve, 500));
+  try {
+    // If no topics, get all ebooks
+    if (topics.length === 0) {
+      const response = await fetch('/api/ebooks');
+      if (!response.ok) {
+        throw new Error('Failed to fetch ebooks');
+      }
+      const dbEbooks: DbEbook[] = await response.json();
+      return dbEbooks.map(convertDbEbookToClientEbook);
+    }
 
-  if (topics.length === 0) {
-    return mockEbooks.slice(0, 6); // Return sample books
+    // Search for ebooks based on topics
+    const searchQuery = topics.join(' ');
+    const response = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`);
+    if (!response.ok) {
+      throw new Error('Failed to search ebooks');
+    }
+    const dbEbooks: DbEbook[] = await response.json();
+    return dbEbooks.map(convertDbEbookToClientEbook);
+  } catch (error) {
+    console.error('Database search failed:', error);
+    // Return empty array on error
+    return [];
   }
-
-  // Filter ebooks based on topics
-  const filteredEbooks = mockEbooks.filter(ebook => {
-    const searchableText = `${ebook.title} ${ebook.description} ${ebook.category} ${ebook.frameworkTags.join(' ')}`.toLowerCase();
-    return topics.some(topic => searchableText.includes(topic.toLowerCase()));
-  });
-
-  // If no matches found, return some sample books
-  return filteredEbooks.length > 0 ? filteredEbooks : mockEbooks.slice(0, 3);
 }
 
 // Helper function to extract topics from search query

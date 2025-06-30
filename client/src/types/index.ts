@@ -1,12 +1,10 @@
-// Complexity levels for ebooks
-export enum ComplexityRating {
-  Beginner = 'beginner',
-  Intermediate = 'intermediate', 
-  Advanced = 'advanced',
-  Research = 'research',
-}
+// Import types from shared schema
+export { 
+  ComplexityRating, 
+  type Ebook as DbEbook 
+} from '../../../shared/schema';
 
-// Core ebook interface
+// Client-side Ebook interface (for display purposes)
 export interface Ebook {
   id: string;
   title: string;
@@ -15,7 +13,7 @@ export interface Ebook {
   price: number; // in dollars
   coverUrl: string;
   category: string;
-  complexity: ComplexityRating;
+  complexity: string;
   frameworkTags: string[];
   pageCount: number;
 }
