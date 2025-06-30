@@ -22,11 +22,11 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 cursor-pointer" onClick={closeMobileMenu}>
-            <BookOpenIcon className="w-8 h-8 text-ai-teal" />
+            <BookOpenIcon className="w-8 h-8" style={{color: '#00d4aa'}} />
             <span className="text-xl font-bold">
-              <span className="text-ai-teal">me</span>
-              <span className="text-text-primary">books</span>
-              <span className="text-ai-blue">.ai</span>
+              <span style={{color: '#00d4aa'}}>m</span>
+              <span style={{color: '#f59e0b'}}>ebooks</span>
+              <span style={{color: '#ec4899'}}>.ai</span>
             </span>
           </Link>
 
