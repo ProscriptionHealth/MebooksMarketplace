@@ -18,7 +18,15 @@ export const Hero = ({ onSearch, isSearching }: HeroProps) => {
       {/* Hero Title */}
       <div className="text-center mb-8">
         <h1 className="text-4xl md:text-6xl font-bold">
-          <span className="bg-gradient-to-r from-ai-teal via-ai-blue to-ai-purple bg-clip-text text-transparent">
+          <span 
+            className="bg-gradient-to-r from-ai-teal via-ai-blue to-ai-purple bg-clip-text text-transparent"
+            style={{
+              background: 'linear-gradient(to right, #00d4aa, #0ea5e9, #8b5cf6)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}
+          >
             Upskill with AI-Powered Knowledge
           </span>
         </h1>

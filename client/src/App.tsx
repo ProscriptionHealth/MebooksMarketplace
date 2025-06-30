@@ -34,7 +34,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col" style={{backgroundColor: '#0f0f23', color: '#ffffff'}}>
           <TechBackground />
           <Header />
           <main className="flex-1 relative z-10">

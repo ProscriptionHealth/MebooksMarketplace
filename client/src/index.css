@@ -48,8 +48,13 @@
   }
 
   body {
-    @apply bg-neural-bg text-text-primary font-sans antialiased min-h-screen;
+    background-color: var(--neural-bg) !important;
+    color: var(--text-primary) !important;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
   }
 
   .font-mono {
@@ -164,6 +169,21 @@
   
   .border-ai-purple\/20 {
     border-color: rgba(139, 92, 246, 0.2);
+  }
+  
+  .from-neural-bg {
+    --tw-gradient-from: var(--neural-bg);
+    --tw-gradient-to: var(--neural-bg) transparent;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+  
+  .via-neural-secondary {
+    --tw-gradient-to: var(--neural-secondary) transparent;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--neural-secondary), var(--tw-gradient-to);
+  }
+  
+  .to-neural-tertiary {
+    --tw-gradient-to: var(--neural-tertiary);
   }
   
   .text-shadow {
