@@ -40,6 +40,17 @@ function App() {
           <main className="flex-1 relative z-10">
             <Router />
           </main>
+          
+          {/* Description Section Above Footer */}
+          <section className="relative z-10 py-16 bg-neural-secondary/50">
+            <div className="container mx-auto px-4 text-center">
+              <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto" style={{color: '#94a3b8'}}>
+                Go from idea to expert with curated ebooks on AI, Product, and Engineering. 
+                Find exactly what you need with our intelligent search.
+              </p>
+            </div>
+          </section>
+          
           <Footer />
         </div>
         <Toaster />

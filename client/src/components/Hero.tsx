@@ -44,11 +44,7 @@ export const Hero = ({ onSearch, isSearching }: HeroProps) => {
           <p className="text-text-muted text-sm mb-4">e.g., "How do I build an AI startup?" or "master product design"</p>
         </div>
 
-        {/* Description */}
-        <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto">
-          Go from idea to expert with curated ebooks on AI, Product, and Engineering. 
-          Find exactly what you need with our intelligent search.
-        </p>
+
       </div>
     </div>
   );
