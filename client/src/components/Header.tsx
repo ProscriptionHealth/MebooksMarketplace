@@ -52,7 +52,22 @@ export const Header = () => {
             </div>
             <span className="text-xl font-bold">
               <span style={{color: '#00d4aa'}}>m</span>
-              <span style={{color: '#f59e0b'}}>ebooks</span>
+              <span style={{color: '#f59e0b'}}>
+                <span style={{position: 'relative', display: 'inline-block'}}>
+                  e
+                  <span style={{
+                    position: 'absolute',
+                    top: '-0.15em',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '0.5em',
+                    height: '1.5px',
+                    backgroundColor: '#f59e0b',
+                    fontSize: '0.8em'
+                  }}></span>
+                </span>
+                books
+              </span>
               <span style={{color: '#ec4899'}}>.ai</span>
             </span>
           </Link>
