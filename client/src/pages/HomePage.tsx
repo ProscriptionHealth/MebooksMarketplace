@@ -45,8 +45,8 @@ export default function HomePage() {
 
   return (
     <div>
-      <div className="container mx-auto px-4 md:px-8" style={{minHeight: 'calc(100vh - 120px)'}}>
-        <div className="flex flex-col justify-center" style={{minHeight: 'calc(100vh - 200px)'}}>
+      <div className="container mx-auto px-4 md:px-8" style={{minHeight: 'calc(100vh - 180px)'}}>
+        <div className="flex flex-col justify-center" style={{minHeight: 'calc(100vh - 280px)'}}>
           <Hero onSearch={handleSearch} isSearching={isSearching} />
         </div>
       </div>
