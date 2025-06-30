@@ -1,30 +1,30 @@
 export const MebooksLogo = () => {
   return (
     <div className="text-center mb-8">
-      <div className="relative bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl inline-block">
+      <div className="relative inline-block">
         <div className="flex flex-col md:flex-row items-center justify-center mb-4 text-2xl md:text-3xl font-light tracking-wider">
-          <span className="font-bold mb-4 md:mb-0">
-            <span style={{color: '#00d4aa'}}>m</span>
-            <span style={{color: '#f59e0b'}}>ebooks</span>
-            <span style={{color: '#ec4899'}}>.ai</span>
+          <span className="font-bold mb-4 md:mb-0" style={{textShadow: '0 0 20px rgba(0, 212, 170, 0.3), 0 0 10px rgba(245, 158, 11, 0.2)'}}>
+            <span style={{color: '#00d4aa', textShadow: '0 0 15px rgba(0, 212, 170, 0.4)'}}>m</span>
+            <span style={{color: '#f59e0b', textShadow: '0 0 15px rgba(245, 158, 11, 0.4)'}}>ebooks</span>
+            <span style={{color: '#ec4899', textShadow: '0 0 15px rgba(236, 72, 153, 0.4)'}}>.ai</span>
           </span>
-          <span className="text-cyan-400 mx-4 text-2xl md:text-3xl transform md:transform-none rotate-90 md:rotate-0 shadow-cyan-400/50 text-shadow" style={{color: '#0ea5e9'}}>
+          <span className="mx-4 text-2xl md:text-3xl transform md:transform-none rotate-90 md:rotate-0" style={{color: '#0ea5e9', textShadow: '0 0 15px rgba(14, 165, 233, 0.4)'}}>
             &lt; -
           </span>
           <span className="font-mono text-lg md:text-xl text-gray-200">
-            <span className="text-red-400 text-xl md:text-2xl font-bold" style={{color: '#ec4899'}}>{`{`}</span>
-            <span className="text-teal-400 italic" style={{color: '#00d4aa'}}>my</span>
-            <span className="text-gray-200" style={{color: '#ffffff'}}>, </span>
-            <span className="text-yellow-300 font-semibold" style={{color: '#f59e0b'}}>ebooks</span>
-            <span className="text-red-400 text-lg md:text-xl" style={{color: '#ec4899'}}>,...,</span>
-            <span className="text-cyan-400 text-xl md:text-2xl mx-2" style={{color: '#0ea5e9'}}>|</span>
-            <span className="text-red-400 font-bold" style={{color: '#ec4899'}}>ai</span>
-            <span className="text-cyan-400 text-xl md:text-2xl mx-2" style={{color: '#0ea5e9'}}>|</span>
-            <span className="text-red-400 text-xl md:text-2xl font-bold" style={{color: '#ec4899'}}>{`}`}</span>
+            <span className="text-xl md:text-2xl font-bold" style={{color: '#ec4899', textShadow: '0 0 10px rgba(236, 72, 153, 0.3)'}}>{`{`}</span>
+            <span className="italic" style={{color: '#00d4aa', textShadow: '0 0 10px rgba(0, 212, 170, 0.3)'}}>my</span>
+            <span style={{color: '#ffffff', textShadow: '0 0 8px rgba(255, 255, 255, 0.2)'}}>, </span>
+            <span className="font-semibold" style={{color: '#f59e0b', textShadow: '0 0 10px rgba(245, 158, 11, 0.3)'}}>ebooks</span>
+            <span className="text-lg md:text-xl" style={{color: '#ec4899', textShadow: '0 0 10px rgba(236, 72, 153, 0.3)'}}>,...,</span>
+            <span className="text-xl md:text-2xl mx-2" style={{color: '#0ea5e9', textShadow: '0 0 10px rgba(14, 165, 233, 0.3)'}}>|</span>
+            <span className="font-bold" style={{color: '#ec4899', textShadow: '0 0 10px rgba(236, 72, 153, 0.3)'}}>ai</span>
+            <span className="text-xl md:text-2xl mx-2" style={{color: '#0ea5e9', textShadow: '0 0 10px rgba(14, 165, 233, 0.3)'}}>|</span>
+            <span className="text-xl md:text-2xl font-bold" style={{color: '#ec4899', textShadow: '0 0 10px rgba(236, 72, 153, 0.3)'}}>{`}`}</span>
           </span>
         </div>
-        <div className="text-center text-lg italic tracking-wide opacity-80" style={{color: '#94a3b8'}}>
-          <span className="text-red-400 font-bold" style={{color: '#ec4899'}}>ai</span> = set of Artificial Intelligence subject matter
+        <div className="text-center text-lg italic tracking-wide opacity-80" style={{color: '#94a3b8', textShadow: '0 0 8px rgba(148, 163, 184, 0.2)'}}>
+          <span className="font-bold" style={{color: '#ec4899', textShadow: '0 0 10px rgba(236, 72, 153, 0.3)'}}>ai</span> = set of Artificial Intelligence subject matter
         </div>
       </div>
     </div>

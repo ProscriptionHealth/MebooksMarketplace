@@ -35,8 +35,8 @@ const generateEquations = (count: number, width: number, height: number): Equati
       style: {
         top: `${Math.random() * height}px`,
         left: `${Math.random() * width}px`,
-        fontSize: `${Math.random() * 8 + 8}px`, // 8px to 16px
-        opacity: Math.random() * 0.15 + 0.1, // 0.1 to 0.25
+        fontSize: `${Math.random() * 6 + 12}px`, // 12px to 18px (matching text-sm)
+        opacity: Math.random() * 0.25 + 0.15, // 0.15 to 0.4 (more visible)
       },
     });
   }
@@ -51,8 +51,8 @@ export const TechBackground: React.FC = () => {
     const updateDimensionsAndRegenerate = () => {
         const innerWidth = window.innerWidth;
         const scrollHeight = document.body.scrollHeight;
-        // Generate a sparse number of equations based on screen width
-        const count = Math.floor(innerWidth / 80); 
+        // Generate more equations for better visibility
+        const count = Math.floor(innerWidth / 60); // More dense 
         setEquations(generateEquations(count, innerWidth, scrollHeight));
     };
     
@@ -84,14 +84,16 @@ export const TechBackground: React.FC = () => {
       ></div>
       
       {/* Mathematical equations overlay */}
-      <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden" aria-hidden="true">
+      <div className="fixed inset-0 -z-5 pointer-events-none overflow-hidden" aria-hidden="true">
         {equations.map(({ id, content, style }) => (
           <span
             key={id}
-            className="absolute font-mono"
+            className="absolute text-sm" 
             style={{
               ...style,
-              color: ['#00d4aa', '#0ea5e9', '#8b5cf6', '#f59e0b'][id % 4]
+              color: ['#00d4aa', '#0ea5e9', '#8b5cf6', '#f59e0b'][id % 4],
+              fontFamily: 'inherit', // Match search examples font
+              textShadow: '0 0 10px rgba(0, 0, 0, 0.5)' // Add subtle shadow for better readability
             }}
           >
             {content}
