@@ -15,14 +15,17 @@ export const Hero = ({ onSearch, isSearching }: HeroProps) => {
     <div>
       <MebooksLogo />
 
-      {/* Hero Section */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6">
+      {/* Hero Title */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl md:text-6xl font-bold">
           <span className="bg-gradient-to-r from-ai-teal via-ai-blue to-ai-purple bg-clip-text text-transparent">
             Upskill with AI-Powered Knowledge
           </span>
         </h1>
+      </div>
 
+      {/* Hero Section */}
+      <div className="text-center mb-16">
         {/* Search Bar */}
         <div className="max-w-2xl mx-auto mb-8">
           <SearchBar onSearch={onSearch} isLoading={isSearching} />
