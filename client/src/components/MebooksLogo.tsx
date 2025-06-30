@@ -10,13 +10,13 @@ export const MebooksLogo = () => {
                 e
                 <span style={{
                   position: 'absolute',
-                  top: '-0.2em',
+                  top: '-0.15em',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  width: '0.6em',
-                  height: '2px',
+                  width: '0.8em',
+                  height: '3px',
                   backgroundColor: '#f59e0b',
-                  fontSize: '0.8em'
+                  borderRadius: '2px'
                 }}></span>
               </span>
               books
