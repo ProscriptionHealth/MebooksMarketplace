@@ -22,7 +22,9 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 cursor-pointer" onClick={closeMobileMenu}>
-            <BookOpenIcon className="w-8 h-8" style={{color: '#00d4aa'}} />
+            <div style={{color: '#00d4aa'}}>
+              <BookOpenIcon className="w-8 h-8" />
+            </div>
             <span className="text-xl font-bold">
               <span style={{color: '#00d4aa'}}>m</span>
               <span style={{color: '#f59e0b'}}>ebooks</span>
