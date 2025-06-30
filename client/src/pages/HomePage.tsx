@@ -44,12 +44,16 @@ export default function HomePage() {
   };
 
   return (
-    <div className="container mx-auto px-4 md:px-8 py-8 md:py-12">
-      <Hero onSearch={handleSearch} isSearching={isSearching} />
+    <div>
+      <div className="container mx-auto px-4 md:px-8" style={{minHeight: 'calc(100vh - 120px)'}}>
+        <div className="flex flex-col justify-center" style={{minHeight: 'calc(100vh - 200px)'}}>
+          <Hero onSearch={handleSearch} isSearching={isSearching} />
+        </div>
+      </div>
       
       {/* Search Results Section */}
       {hasSearched && (
-        <div id="search-results" className="mt-16">
+        <div id="search-results" className="container mx-auto px-4 md:px-8 mt-16">
           <EbookList ebooks={searchResults} geminiResponse={geminiResponse} />
         </div>
       )}
