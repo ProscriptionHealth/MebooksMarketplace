@@ -24,22 +24,22 @@
   --ring: hsl(240, 4.9%, 83.9%);
   --radius: 0.5rem;
 
-  /* AI-focused color palette */
-  --ai-teal: hsl(168, 100%, 42%);
-  --ai-blue: hsl(199, 89%, 48%);
-  --ai-purple: hsl(258, 90%, 66%);
-  --ai-amber: hsl(43, 96%, 56%);
-  --ai-pink: hsl(330, 81%, 60%);
+  /* AI-focused color palette - exact from original */
+  --ai-teal: #00d4aa;
+  --ai-blue: #0ea5e9;
+  --ai-purple: #8b5cf6;
+  --ai-amber: #f59e0b;
+  --ai-pink: #ec4899;
   
-  /* Neural network dark theme */
-  --neural-bg: hsl(240, 35%, 6%);
-  --neural-secondary: hsl(240, 35%, 11%);
-  --neural-tertiary: hsl(215, 35%, 16%);
+  /* Neural network dark theme - exact from original */
+  --neural-bg: #0f0f23;
+  --neural-secondary: #1a1a3e;
+  --neural-tertiary: #16213e;
   
-  /* Text hierarchy */
-  --text-primary: hsl(0, 0%, 100%);
-  --text-secondary: hsl(215, 16%, 65%);
-  --text-muted: hsl(215, 20%, 46%);
+  /* Text hierarchy - exact from original */
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
 }
 
 @layer base {
@@ -139,11 +139,11 @@
   }
   
   .hover\:bg-ai-teal\/90:hover {
-    background-color: hsl(168, 100%, 42%, 0.9);
+    background-color: rgba(0, 212, 170, 0.9);
   }
   
   .hover\:bg-ai-blue\/90:hover {
-    background-color: hsl(199, 89%, 48%, 0.9);
+    background-color: rgba(14, 165, 233, 0.9);
   }
   
   .hover\:bg-neural-tertiary:hover {
@@ -155,15 +155,15 @@
   }
   
   .focus\:ring-ai-teal\/20:focus {
-    box-shadow: 0 0 0 3px hsl(168, 100%, 42%, 0.2);
+    box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.2);
   }
   
   .bg-ai-purple\/10 {
-    background-color: hsl(258, 90%, 66%, 0.1);
+    background-color: rgba(139, 92, 246, 0.1);
   }
   
   .border-ai-purple\/20 {
-    border-color: hsl(258, 90%, 66%, 0.2);
+    border-color: rgba(139, 92, 246, 0.2);
   }
   
   .text-shadow {
