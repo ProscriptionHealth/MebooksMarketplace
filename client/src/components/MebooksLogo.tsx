@@ -3,19 +3,13 @@ export const MebooksLogo = () => {
     <div className="text-center mb-8">
       <div className="relative bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl inline-block">
         <div className="flex flex-col md:flex-row items-center justify-center mb-4 text-2xl md:text-3xl font-light tracking-wider">
-          <span 
-            className="bg-gradient-to-r from-cyan-400 via-red-400 to-teal-400 bg-clip-text text-transparent font-bold mb-4 md:mb-0"
-            style={{
-              background: 'linear-gradient(to right, #00d4aa, #ec4899, #00d4aa)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}
-          >
-            mebooks.ai
+          <span className="font-bold mb-4 md:mb-0">
+            <span style={{color: '#00d4aa'}}>m</span>
+            <span style={{color: '#f59e0b'}}>ebooks</span>
+            <span style={{color: '#ec4899'}}>.ai</span>
           </span>
           <span className="text-cyan-400 mx-4 text-2xl md:text-3xl transform md:transform-none rotate-90 md:rotate-0 shadow-cyan-400/50 text-shadow" style={{color: '#0ea5e9'}}>
-            &lt;-
+            &lt; -
           </span>
           <span className="font-mono text-lg md:text-xl text-gray-200">
             <span className="text-red-400 text-xl md:text-2xl font-bold" style={{color: '#ec4899'}}>{`{`}</span>
