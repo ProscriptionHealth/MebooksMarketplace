@@ -29,8 +29,8 @@ export const MebooksLogo = () => {
             <span className="text-red-400 text-3xl md:text-4xl font-bold" style={{color: '#ec4899'}}>{`}`}</span>
           </span>
         </div>
-        <div className="text-center text-lg text-gray-400 italic tracking-wide opacity-80">
-          <span className="text-red-400 font-bold">ai</span> = set of Artificial Intelligence subject matter
+        <div className="text-center text-lg italic tracking-wide opacity-80" style={{color: '#94a3b8'}}>
+          <span className="text-red-400 font-bold" style={{color: '#ec4899'}}>ai</span> = set of Artificial Intelligence subject matter
         </div>
       </div>
     </div>
