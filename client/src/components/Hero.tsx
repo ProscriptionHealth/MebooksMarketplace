@@ -16,8 +16,8 @@ export const Hero = ({ onSearch, isSearching }: HeroProps) => {
       <MebooksLogo />
 
       {/* Hero Title */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-6xl font-bold">
+      <div className="text-center mb-8 mt-12">
+        <h1 className="text-2xl md:text-3xl font-bold">
           <span 
             className="bg-gradient-to-r from-ai-teal via-ai-blue to-ai-purple bg-clip-text text-transparent"
             style={{
