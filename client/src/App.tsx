@@ -13,18 +13,37 @@ import HowWeDoPage from "@/pages/about/HowWeDoPage";
 import HowItWorksPage from "@/pages/HowItWorksPage";
 import AuthorsPage from "@/pages/AuthorsPage";
 import SeekersPage from "@/pages/SeekersPage";
+import SellEbooksPage from "@/pages/authors/SellEbooksPage";
+import AuthorsHowItWorksPage from "@/pages/howItWorks/AuthorsHowItWorksPage";
+import SeekersHowItWorksPage from "@/pages/howItWorks/SeekersHowItWorksPage";
+import UpSkillPage from "@/pages/seekers/UpSkillPage";
+import SearchPage from "@/pages/seekers/SearchPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={HomePage} />
+      
+      {/* About routes */}
       <Route path="/about/why-we-do" component={WhyWeDoPage} />
       <Route path="/about/what-we-do" component={WhatWeDoPage} />
       <Route path="/about/how-we-do" component={HowWeDoPage} />
-      <Route path="/how-it-works" component={HowItWorksPage} />
+      
+      {/* Authors routes */}
       <Route path="/authors" component={AuthorsPage} />
+      <Route path="/authors/sell-ebooks" component={SellEbooksPage} />
+      
+      {/* How It Works routes */}
+      <Route path="/how-it-works" component={HowItWorksPage} />
+      <Route path="/how-it-works/authors" component={AuthorsHowItWorksPage} />
+      <Route path="/how-it-works/seekers" component={SeekersHowItWorksPage} />
+      
+      {/* Seekers routes */}
       <Route path="/seekers" component={SeekersPage} />
+      <Route path="/seekers/upskill" component={UpSkillPage} />
+      <Route path="/seekers/search" component={SearchPage} />
+      
       <Route component={NotFound} />
     </Switch>
   );

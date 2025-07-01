@@ -6,7 +6,7 @@ import { ChevronDownIcon } from './icons/ChevronDownIcon';
 export const Header = () => {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const toggleMobileMenu = () => {
@@ -17,17 +17,17 @@ export const Header = () => {
     setIsMobileMenuOpen(false);
   };
 
-  const handleDropdownEnter = () => {
+  const handleDropdownEnter = (dropdownName: string) => {
     if (dropdownTimeout) {
       clearTimeout(dropdownTimeout);
       setDropdownTimeout(null);
     }
-    setIsAboutDropdownOpen(true);
+    setActiveDropdown(dropdownName);
   };
 
   const handleDropdownLeave = () => {
     const timeout = setTimeout(() => {
-      setIsAboutDropdownOpen(false);
+      setActiveDropdown(null);
     }, 200); // 200ms delay before closing
     setDropdownTimeout(timeout);
   };
@@ -62,27 +62,27 @@ export const Header = () => {
             {/* About Dropdown */}
             <div 
               className="relative"
-              onMouseEnter={handleDropdownEnter}
+              onMouseEnter={() => handleDropdownEnter('about')}
               onMouseLeave={handleDropdownLeave}
             >
               <button 
                 className="flex items-center space-x-1 text-text-secondary hover:text-ai-teal transition-colors py-2 px-1"
-                onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
+                onClick={() => setActiveDropdown(activeDropdown === 'about' ? null : 'about')}
               >
                 <span>About</span>
-                <ChevronDownIcon className={`w-4 h-4 transition-transform duration-200 ${isAboutDropdownOpen ? 'rotate-180' : ''}`} />
+                <ChevronDownIcon className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'about' ? 'rotate-180' : ''}`} />
               </button>
-              {isAboutDropdownOpen && (
+              {activeDropdown === 'about' && (
                 <div 
                   className="absolute top-full left-0 mt-1 w-56 bg-neural-secondary/95 backdrop-blur-sm border border-neural-tertiary rounded-lg shadow-xl z-50"
-                  onMouseEnter={handleDropdownEnter}
+                  onMouseEnter={() => handleDropdownEnter('about')}
                   onMouseLeave={handleDropdownLeave}
                 >
                   <div className="py-2">
                     <Link 
                       href="/about/why-we-do" 
                       className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
-                      onClick={() => setIsAboutDropdownOpen(false)}
+                      onClick={() => setActiveDropdown(null)}
                     >
                       <div className="flex items-center">
                         <span className="font-medium">Why We Do</span>
@@ -92,46 +92,142 @@ export const Header = () => {
                     <Link 
                       href="/about/what-we-do" 
                       className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
-                      onClick={() => setIsAboutDropdownOpen(false)}
+                      onClick={() => setActiveDropdown(null)}
                     >
                       <div className="flex items-center">
                         <span className="font-medium">What We Do</span>
                       </div>
                       <span className="text-xs text-text-muted mt-1 block">Our services and offerings</span>
                     </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Authors Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => handleDropdownEnter('authors')}
+              onMouseLeave={handleDropdownLeave}
+            >
+              <button 
+                className="flex items-center space-x-1 text-text-secondary hover:text-ai-teal transition-colors py-2 px-1"
+                onClick={() => setActiveDropdown(activeDropdown === 'authors' ? null : 'authors')}
+              >
+                <span>Authors</span>
+                <ChevronDownIcon className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'authors' ? 'rotate-180' : ''}`} />
+              </button>
+              {activeDropdown === 'authors' && (
+                <div 
+                  className="absolute top-full left-0 mt-1 w-56 bg-neural-secondary/95 backdrop-blur-sm border border-neural-tertiary rounded-lg shadow-xl z-50"
+                  onMouseEnter={() => handleDropdownEnter('authors')}
+                  onMouseLeave={handleDropdownLeave}
+                >
+                  <div className="py-2">
                     <Link 
-                      href="/about/how-we-do" 
+                      href="/authors/sell-ebooks" 
                       className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
-                      onClick={() => setIsAboutDropdownOpen(false)}
+                      onClick={() => setActiveDropdown(null)}
                     >
                       <div className="flex items-center">
-                        <span className="font-medium">How We Do</span>
+                        <span className="font-medium">Sell Ebooks</span>
                       </div>
-                      <span className="text-xs text-text-muted mt-1 block">Our process and methodology</span>
+                      <span className="text-xs text-text-muted mt-1 block">Start earning from your expertise</span>
                     </Link>
                   </div>
                 </div>
               )}
             </div>
-            
-            <Link 
-              href="/how-it-works" 
-              className="text-text-secondary hover:text-ai-teal transition-colors"
+
+            {/* How It Works Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => handleDropdownEnter('howItWorks')}
+              onMouseLeave={handleDropdownLeave}
             >
-              How It Works
-            </Link>
-            <Link 
-              href="/authors" 
-              className="text-text-secondary hover:text-ai-teal transition-colors"
+              <button 
+                className="flex items-center space-x-1 text-text-secondary hover:text-ai-teal transition-colors py-2 px-1"
+                onClick={() => setActiveDropdown(activeDropdown === 'howItWorks' ? null : 'howItWorks')}
+              >
+                <span>How It Works</span>
+                <ChevronDownIcon className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'howItWorks' ? 'rotate-180' : ''}`} />
+              </button>
+              {activeDropdown === 'howItWorks' && (
+                <div 
+                  className="absolute top-full left-0 mt-1 w-56 bg-neural-secondary/95 backdrop-blur-sm border border-neural-tertiary rounded-lg shadow-xl z-50"
+                  onMouseEnter={() => handleDropdownEnter('howItWorks')}
+                  onMouseLeave={handleDropdownLeave}
+                >
+                  <div className="py-2">
+                    <Link 
+                      href="/how-it-works/authors" 
+                      className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      <div className="flex items-center">
+                        <span className="font-medium">Authors</span>
+                      </div>
+                      <span className="text-xs text-text-muted mt-1 block">Publishing process explained</span>
+                    </Link>
+                    <Link 
+                      href="/how-it-works/seekers" 
+                      className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      <div className="flex items-center">
+                        <span className="font-medium">Seekers</span>
+                      </div>
+                      <span className="text-xs text-text-muted mt-1 block">Finding and learning process</span>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Seekers Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => handleDropdownEnter('seekers')}
+              onMouseLeave={handleDropdownLeave}
             >
-              Authors
-            </Link>
-            <Link 
-              href="/seekers" 
-              className="text-text-secondary hover:text-ai-teal transition-colors"
-            >
-              Seekers
-            </Link>
+              <button 
+                className="flex items-center space-x-1 text-text-secondary hover:text-ai-teal transition-colors py-2 px-1"
+                onClick={() => setActiveDropdown(activeDropdown === 'seekers' ? null : 'seekers')}
+              >
+                <span>Seekers</span>
+                <ChevronDownIcon className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'seekers' ? 'rotate-180' : ''}`} />
+              </button>
+              {activeDropdown === 'seekers' && (
+                <div 
+                  className="absolute top-full left-0 mt-1 w-56 bg-neural-secondary/95 backdrop-blur-sm border border-neural-tertiary rounded-lg shadow-xl z-50"
+                  onMouseEnter={() => handleDropdownEnter('seekers')}
+                  onMouseLeave={handleDropdownLeave}
+                >
+                  <div className="py-2">
+                    <Link 
+                      href="/seekers/upskill" 
+                      className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      <div className="flex items-center">
+                        <span className="font-medium">UpSkill</span>
+                      </div>
+                      <span className="text-xs text-text-muted mt-1 block">Advance your career with curated learning</span>
+                    </Link>
+                    <Link 
+                      href="/seekers/search" 
+                      className="block px-6 py-3 text-sm text-text-secondary hover:text-ai-teal hover:bg-neural-tertiary/50 transition-all duration-200 cursor-pointer"
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      <div className="flex items-center">
+                        <span className="font-medium">Search</span>
+                      </div>
+                      <span className="text-xs text-text-muted mt-1 block">AI-powered knowledge discovery</span>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Sign In Button */}
@@ -155,48 +251,70 @@ export const Header = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-neural-secondary border-t border-neural-tertiary">
           <div className="px-4 py-2 space-y-2">
-            <Link 
-              href="/about/why-we-do" 
-              className="block py-2 text-text-secondary hover:text-ai-teal"
-              onClick={closeMobileMenu}
-            >
-              About - Why We Do
-            </Link>
-            <Link 
-              href="/about/what-we-do" 
-              className="block py-2 text-text-secondary hover:text-ai-teal"
-              onClick={closeMobileMenu}
-            >
-              About - What We Do
-            </Link>
-            <Link 
-              href="/about/how-we-do" 
-              className="block py-2 text-text-secondary hover:text-ai-teal"
-              onClick={closeMobileMenu}
-            >
-              About - How We Do
-            </Link>
-            <Link 
-              href="/how-it-works" 
-              className="block py-2 text-text-secondary hover:text-ai-teal"
-              onClick={closeMobileMenu}
-            >
-              How It Works
-            </Link>
-            <Link 
-              href="/authors" 
-              className="block py-2 text-text-secondary hover:text-ai-teal"
-              onClick={closeMobileMenu}
-            >
-              Authors
-            </Link>
-            <Link 
-              href="/seekers" 
-              className="block py-2 text-text-secondary hover:text-ai-teal"
-              onClick={closeMobileMenu}
-            >
-              Seekers
-            </Link>
+            <div className="py-2">
+              <h3 className="text-sm font-semibold text-ai-teal mb-2">About</h3>
+              <Link 
+                href="/about/why-we-do" 
+                className="block py-1 pl-4 text-text-secondary hover:text-ai-teal"
+                onClick={closeMobileMenu}
+              >
+                Why We Do
+              </Link>
+              <Link 
+                href="/about/what-we-do" 
+                className="block py-1 pl-4 text-text-secondary hover:text-ai-teal"
+                onClick={closeMobileMenu}
+              >
+                What We Do
+              </Link>
+            </div>
+            
+            <div className="py-2">
+              <h3 className="text-sm font-semibold text-ai-teal mb-2">Authors</h3>
+              <Link 
+                href="/authors/sell-ebooks" 
+                className="block py-1 pl-4 text-text-secondary hover:text-ai-teal"
+                onClick={closeMobileMenu}
+              >
+                Sell Ebooks
+              </Link>
+            </div>
+            
+            <div className="py-2">
+              <h3 className="text-sm font-semibold text-ai-teal mb-2">How It Works</h3>
+              <Link 
+                href="/how-it-works/authors" 
+                className="block py-1 pl-4 text-text-secondary hover:text-ai-teal"
+                onClick={closeMobileMenu}
+              >
+                Authors
+              </Link>
+              <Link 
+                href="/how-it-works/seekers" 
+                className="block py-1 pl-4 text-text-secondary hover:text-ai-teal"
+                onClick={closeMobileMenu}
+              >
+                Seekers
+              </Link>
+            </div>
+            
+            <div className="py-2">
+              <h3 className="text-sm font-semibold text-ai-teal mb-2">Seekers</h3>
+              <Link 
+                href="/seekers/upskill" 
+                className="block py-1 pl-4 text-text-secondary hover:text-ai-teal"
+                onClick={closeMobileMenu}
+              >
+                UpSkill
+              </Link>
+              <Link 
+                href="/seekers/search" 
+                className="block py-1 pl-4 text-text-secondary hover:text-ai-teal"
+                onClick={closeMobileMenu}
+              >
+                Search
+              </Link>
+            </div>
           </div>
         </div>
       )}
