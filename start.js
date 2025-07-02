@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 import { spawn } from 'child_process';
 
+console.log('Starting Mebooks.ai Development Server...');
+
 // Set NODE_ENV to development for proper Vite integration
 const server = spawn('npx', ['tsx', 'server/index.ts'], {
   stdio: 'inherit',
-  env: { ...process.env, NODE_ENV: 'development' }
+  env: { ...process.env, NODE_ENV: 'development', PORT: '5000' }
 });
 
 server.on('error', (error) => {
