@@ -1,36 +1,55 @@
-import React, { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { SearchIcon } from './icons/SearchIcon';
 import { Loader } from './Loader';
 
 interface SearchBarProps {
-  onSearch: (query: string) => void;
-  isLoading: boolean;
+  onSearch: (query: string) => Promise<void>;
+  isLoading?: boolean;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
+export const SearchBar = ({ onSearch, isLoading = false }: SearchBarProps) => {
   const [query, setQuery] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    onSearch(query);
+    if (query.trim()) {
+      await onSearch(query.trim());
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative">
-      <input
-        type="text"
+    <form className="relative max-w-2xl mx-auto" onSubmit={handleSubmit}>
+      <textarea 
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Describe what you want to learn..."
-        className="w-full pl-5 pr-20 py-4 bg-neural-secondary border border-neural-tertiary rounded-full text-text-primary placeholder-text-muted focus:ring-2 focus:ring-ai-purple focus:border-ai-purple focus:outline-none transition-all duration-300"
+        placeholder="Search for AI ebooks, topics, or frameworks..."
+        className="w-full px-6 py-4 pr-12 bg-neural-secondary border border-neural-tertiary rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-ai-teal focus:ring-2 focus:ring-ai-teal/20 transition-all resize-none"
+        style={{
+          backgroundColor: '#1a1a3e',
+          borderColor: '#16213e',
+          color: '#ffffff',
+          height: '80px'
+        }}
+        rows={3}
         disabled={isLoading}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit(e as any);
+          }
+        }}
       />
-      <button
-        type="submit"
-        className="absolute inset-y-0 right-0 flex items-center justify-center w-16 h-full text-ai-teal hover:text-ai-blue disabled:text-text-muted transition-colors"
-        disabled={isLoading}
+      <button 
+        type="submit" 
+        disabled={isLoading || !query.trim()}
+        className="absolute right-3 top-4 text-ai-teal hover:text-ai-blue transition-colors disabled:opacity-50"
+        style={{color: '#00d4aa'}}
       >
-        {isLoading ? <Loader /> : <SearchIcon className="w-6 h-6" />}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <SearchIcon className="w-6 h-6" />
+        )}
       </button>
     </form>
   );
