@@ -7,17 +7,17 @@ interface HeroProps {
 }
 
 export const Hero = ({ onSearch, isSearching }: HeroProps) => {
+  const handleExampleSearch = (query: string) => {
+    onSearch(query);
+  };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      {/* Logo */}
-      <div className="mb-8">
-        <MebooksLogo />
-      </div>
+    <div>
+      <MebooksLogo />
 
       {/* Hero Title */}
-      <div className="text-center mb-8">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+      <div className="text-center mb-8 mt-16">
+        <h1 className="text-xl md:text-2xl font-bold">
           <span 
             className="bg-gradient-to-r from-ai-teal via-ai-blue to-ai-purple bg-clip-text text-transparent"
             style={{
@@ -32,17 +32,19 @@ export const Hero = ({ onSearch, isSearching }: HeroProps) => {
         </h1>
       </div>
 
-      {/* Search Section - Centered */}
-      <div className="w-full text-center">
+      {/* Hero Section */}
+      <div className="text-center mb-16 mt-8">
         {/* Search Bar */}
-        <div className="mb-4">
+        <div className="max-w-2xl mx-auto mb-8">
           <SearchBar onSearch={onSearch} isLoading={isSearching} />
         </div>
 
         {/* Search Examples */}
-        <p className="text-text-muted text-sm">
-          e.g., "How do I build an AI startup?" or "master product design"
-        </p>
+        <div className="max-w-2xl mx-auto mb-8">
+          <p className="text-text-muted text-sm mb-4">e.g., "How do I build an AI startup?" or "master product design"</p>
+        </div>
+
+
       </div>
     </div>
   );

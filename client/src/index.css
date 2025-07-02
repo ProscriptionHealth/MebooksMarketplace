@@ -40,13 +40,12 @@
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
-  
-  /* Gradient background colors */
-  --ai-bg-start: #0f0f23;
-  --ai-bg-end: #1a1a3e;
 }
 
 @layer base {
+  * {
+    @apply border-border;
+  }
 
   body {
     background-color: var(--neural-bg) !important;

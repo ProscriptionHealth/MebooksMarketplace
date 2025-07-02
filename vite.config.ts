@@ -29,9 +29,6 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    port: 5000,
-    host: "0.0.0.0",
-    allowedHosts: ["localhost", "127.0.0.1", ".replit.dev", ".replit.app"],
     fs: {
       strict: true,
       deny: ["**/.*"],
