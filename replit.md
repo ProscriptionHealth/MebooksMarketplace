@@ -7,8 +7,8 @@ Mebooks.ai is a specialized AI-focused ebook marketplace with a unique $0.25 fla
 ## System Architecture
 
 ### Frontend Architecture
-- **Framework**: React 18+ with TypeScript
-- **Build Tool**: Vite 6.2.0 for fast development and optimized builds
+- **Framework**: React 19.1.0 with TypeScript 5.7.2
+- **Build Tool**: Vite 6.3.5 for fast development and optimized builds
 - **Styling**: Tailwind CSS with custom AI-focused color palette
 - **Routing**: Wouter for lightweight client-side routing
 - **State Management**: React hooks (useState, useEffect, useCallback) with TanStack Query for server state
@@ -98,6 +98,7 @@ Mebooks.ai is a specialized AI-focused ebook marketplace with a unique $0.25 fla
 
 ```
 Changelog:
+- July 2, 2025. Major dependency upgrades: React 19.1.0, Vite 6.3.5, TypeScript 5.7.2, integrated Redis caching system
 - June 30, 2025. Initial setup
 ```
 
