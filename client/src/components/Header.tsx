@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { BookOpenIcon } from './icons/BookOpenIcon';
 import { ChevronDownIcon } from './icons/ChevronDownIcon';
