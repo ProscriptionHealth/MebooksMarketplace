@@ -3,7 +3,7 @@ export const MebooksLogo = () => {
     <div className="text-center">
       <div className="relative inline-block">
         {/* Main logo line - always horizontal */}
-        <div className="flex items-center justify-center mb-6 text-2xl md:text-3xl lg:text-4xl font-light tracking-wide">
+        <div className="flex items-center justify-center mb-6 text-3xl md:text-4xl lg:text-6xl font-light tracking-wide">
           {/* Brand name */}
           <span className="font-bold" style={{
             background: 'linear-gradient(45deg, #00d4aa, #f59e0b, #ec4899)', 

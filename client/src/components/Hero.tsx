@@ -11,13 +11,13 @@ export const Hero = ({ onSearch, isSearching }: HeroProps) => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       {/* Logo */}
-      <div className="mb-12">
+      <div className="mb-8">
         <MebooksLogo />
       </div>
 
       {/* Hero Title */}
-      <div className="text-center mb-12">
-        <h1 className="text-3xl md:text-5xl font-bold">
+      <div className="text-center mb-8">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
           <span 
             className="bg-gradient-to-r from-ai-teal via-ai-blue to-ai-purple bg-clip-text text-transparent"
             style={{
@@ -32,10 +32,10 @@ export const Hero = ({ onSearch, isSearching }: HeroProps) => {
         </h1>
       </div>
 
-      {/* Search Section */}
-      <div className="w-full max-w-3xl mx-auto text-center">
+      {/* Search Section - Centered */}
+      <div className="w-full max-w-4xl mx-auto text-center">
         {/* Search Bar */}
-        <div className="mb-6">
+        <div className="mb-4">
           <SearchBar onSearch={onSearch} isLoading={isSearching} />
         </div>
 
