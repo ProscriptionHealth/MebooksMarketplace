@@ -26,5 +26,12 @@ if %errorlevel% neq 0 (
 
 echo.
 echo Dependencies installed successfully!
-echo You can now run: npm run dev
-pause 
+echo.
+echo Available commands:
+echo   npm run dev     - Start development server (Express + Vite)
+echo   npm run build   - Build for production  
+echo   npm run start   - Start production server
+echo   npm run check   - Type check with TypeScript
+echo   npm run db:push - Update database schema
+echo.
+pause

@@ -1,6 +1,6 @@
 {
   "name": "Mebooks.ai: AI-Powered Ebook Marketplace",
-  "description": "An ebook marketplace for AI practitioners and knowledge seekers, featuring sophisticated semantic search and intelligent content discovery to help you upskill in AI/ML, product design, and more.",
+  "description": "AI-powered ebook marketplace with hybrid architecture: React 19 + Express.js backend, Python FastAPI vector search, Redis caching, and Google Gemini AI. Features semantic search, intelligent content discovery, and $0.25 flat-fee model for AI/ML practitioners and knowledge seekers.",
   "requestFramePermissions": [],
   "prompt": ""
 }

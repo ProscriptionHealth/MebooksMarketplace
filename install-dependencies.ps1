@@ -27,5 +27,12 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host ""
 Write-Host "Dependencies installed successfully!" -ForegroundColor Green
-Write-Host "You can now run: npm run dev" -ForegroundColor Cyan
-Read-Host "Press Enter to continue" 
+Write-Host ""
+Write-Host "Available commands:" -ForegroundColor Yellow
+Write-Host "  npm run dev     - Start development server (Express + Vite)" -ForegroundColor Cyan
+Write-Host "  npm run build   - Build for production" -ForegroundColor Cyan
+Write-Host "  npm run start   - Start production server" -ForegroundColor Cyan
+Write-Host "  npm run check   - Type check with TypeScript" -ForegroundColor Cyan
+Write-Host "  npm run db:push - Update database schema" -ForegroundColor Cyan
+Write-Host ""
+Read-Host "Press Enter to continue"

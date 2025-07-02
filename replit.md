@@ -84,6 +84,7 @@ Mebooks.ai is a specialized AI-focused ebook marketplace with a unique $0.25 fla
 - **Replit Integration**: Configured for Replit development environment
 - **Hot Reload**: Vite HMR for fast development iteration
 - **Environment Variables**: DATABASE_URL and API keys management
+- **Setup Scripts**: Cross-platform installation scripts (install-dependencies.bat/.ps1)
 
 ### Production Build
 - **Frontend**: Vite build with optimized assets
@@ -98,6 +99,7 @@ Mebooks.ai is a specialized AI-focused ebook marketplace with a unique $0.25 fla
 
 ```
 Changelog:
+- July 2, 2025. Integrated cross-platform setup scripts (install-dependencies.bat/.ps1), updated metadata.json with current architecture
 - July 2, 2025. Major dependency upgrades: React 19.1.0, Vite 6.3.5, TypeScript 5.7.2, integrated Redis caching system
 - June 30, 2025. Initial setup
 ```
