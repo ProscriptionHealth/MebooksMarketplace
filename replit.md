@@ -91,6 +91,21 @@ Mebooks.ai is a specialized AI-focused ebook marketplace with a unique $0.25 fla
 - **Backend**: ESBuild bundling for Node.js deployment
 - **Static Assets**: Served from dist/public directory
 
+### Docker Containerization
+- **Multi-Service Architecture**: Separate containers for Express.js, Python FastAPI, and React frontend
+- **Express Backend**: Dockerfile.express with Node.js 18 and health checks
+- **Vector Search**: Python FastAPI container with Google Cloud AI Platform integration
+- **Frontend**: React container with Vite build and serve
+- **Orchestration**: Docker Compose with Redis and PostgreSQL services
+- **Environment**: Proper environment variable mapping between development and production
+
+### Google Cloud Deployment
+- **Cloud Run Services**: Three separate services for scalable deployment
+- **Service URLs**: Automatic service discovery and URL management
+- **Health Checks**: Comprehensive health monitoring across all services
+- **Build Pipeline**: Automated building and pushing to Google Container Registry
+- **API Integration**: Full Vertex AI Vector Search API integration
+
 ### Database Management
 - **Migrations**: Drizzle Kit for schema management
 - **Push Deployment**: `npm run db:push` for schema updates
@@ -99,6 +114,7 @@ Mebooks.ai is a specialized AI-focused ebook marketplace with a unique $0.25 fla
 
 ```
 Changelog:
+- July 2, 2025. Integrated Docker containerization and Google Cloud deployment configuration with multi-service architecture (Express.js + Python FastAPI + React frontend)
 - July 2, 2025. Integrated cross-platform setup scripts (install-dependencies.bat/.ps1), updated metadata.json with current architecture
 - July 2, 2025. Major dependency upgrades: React 19.1.0, Vite 6.3.5, TypeScript 5.7.2, integrated Redis caching system
 - June 30, 2025. Initial setup

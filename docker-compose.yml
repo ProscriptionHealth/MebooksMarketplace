@@ -1,6 +1,30 @@
 version: '3.8'
 
 services:
+  # Express.js Backend
+  express-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.express
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - VECTOR_SEARCH_SERVICE_URL=http://vector-search-api:8000
+      - REDIS_URL=redis://redis:6379
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - NODE_ENV=production
+    depends_on:
+      - postgres
+      - redis
+      - vector-search-api
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
   # Vector Search Backend
   vector-search-api:
     build: .
@@ -34,14 +58,14 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_VECTOR_SEARCH_API_URL=http://localhost:8000
-      - REACT_APP_VECTOR_SEARCH_API_KEY=${VECTOR_SEARCH_API_KEY}
-      - REACT_APP_API_KEY=${API_KEY}
+      - VITE_VECTOR_SEARCH_API_URL=http://express-backend:5000
+      - VITE_GEMINI_API_KEY=${GEMINI_API_KEY}
+
     volumes:
-      - ./src:/app/src
-      - ./public:/app/public
+      - ./client/src:/app/src
+      - ./client/public:/app/public
     depends_on:
-      vector-search-api:
+      express-backend:
         condition: service_healthy
     restart: unless-stopped
 

@@ -8,8 +8,12 @@ set -e
 # Configuration
 PROJECT_ID=${GOOGLE_CLOUD_PROJECT_ID}
 REGION=${GOOGLE_CLOUD_LOCATION:-us-central1}
-SERVICE_NAME="mebooks-vector-search"
-IMAGE_NAME="gcr.io/${PROJECT_ID}/${SERVICE_NAME}"
+VECTOR_SERVICE_NAME="mebooks-vector-search"
+EXPRESS_SERVICE_NAME="mebooks-express-backend"
+FRONTEND_SERVICE_NAME="mebooks-frontend"
+VECTOR_IMAGE_NAME="gcr.io/${PROJECT_ID}/${VECTOR_SERVICE_NAME}"
+EXPRESS_IMAGE_NAME="gcr.io/${PROJECT_ID}/${EXPRESS_SERVICE_NAME}"
+FRONTEND_IMAGE_NAME="gcr.io/${PROJECT_ID}/${FRONTEND_SERVICE_NAME}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -43,16 +47,16 @@ gcloud services enable \
     bigquery.googleapis.com \
     --project=$PROJECT_ID
 
-# Build and push Docker image
-echo -e "${YELLOW}🐳 Building and pushing Docker image...${NC}"
+# Build and push Vector Search Docker image
+echo -e "${YELLOW}🐳 Building and pushing Vector Search image...${NC}"
 gcloud builds submit \
-    --tag $IMAGE_NAME \
+    --tag $VECTOR_IMAGE_NAME \
     --project=$PROJECT_ID
 
-# Deploy to Cloud Run
-echo -e "${YELLOW}🚀 Deploying to Cloud Run...${NC}"
-gcloud run deploy $SERVICE_NAME \
-    --image $IMAGE_NAME \
+# Deploy Vector Search to Cloud Run
+echo -e "${YELLOW}🚀 Deploying Vector Search to Cloud Run...${NC}"
+gcloud run deploy $VECTOR_SERVICE_NAME \
+    --image $VECTOR_IMAGE_NAME \
     --platform managed \
     --region $REGION \
     --project $PROJECT_ID \
@@ -65,8 +69,68 @@ gcloud run deploy $SERVICE_NAME \
     --set-env-vars="GOOGLE_CLOUD_PROJECT_ID=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=$REGION" \
     --set-env-vars-from-file=.env
 
-# Get the service URL
-SERVICE_URL=$(gcloud run services describe $SERVICE_NAME \
+# Get Vector Search service URL
+VECTOR_SERVICE_URL=$(gcloud run services describe $VECTOR_SERVICE_NAME \
+    --platform managed \
+    --region $REGION \
+    --project $PROJECT_ID \
+    --format="value(status.url)")
+
+# Build and push Express Backend Docker image
+echo -e "${YELLOW}🐳 Building and pushing Express Backend image...${NC}"
+gcloud builds submit \
+    --tag $EXPRESS_IMAGE_NAME \
+    --dockerfile=Dockerfile.express \
+    --project=$PROJECT_ID
+
+# Deploy Express Backend to Cloud Run
+echo -e "${YELLOW}🚀 Deploying Express Backend to Cloud Run...${NC}"
+gcloud run deploy $EXPRESS_SERVICE_NAME \
+    --image $EXPRESS_IMAGE_NAME \
+    --platform managed \
+    --region $REGION \
+    --project $PROJECT_ID \
+    --allow-unauthenticated \
+    --memory 1Gi \
+    --cpu 1 \
+    --timeout 300 \
+    --concurrency 80 \
+    --max-instances 10 \
+    --set-env-vars="VECTOR_SEARCH_SERVICE_URL=$VECTOR_SERVICE_URL,NODE_ENV=production" \
+    --set-env-vars-from-file=.env
+
+# Get Express Backend service URL
+EXPRESS_SERVICE_URL=$(gcloud run services describe $EXPRESS_SERVICE_NAME \
+    --platform managed \
+    --region $REGION \
+    --project $PROJECT_ID \
+    --format="value(status.url)")
+
+# Build and push Frontend Docker image
+echo -e "${YELLOW}🐳 Building and pushing Frontend image...${NC}"
+gcloud builds submit \
+    --tag $FRONTEND_IMAGE_NAME \
+    --dockerfile=Dockerfile.frontend \
+    --project=$PROJECT_ID
+
+# Deploy Frontend to Cloud Run
+echo -e "${YELLOW}🚀 Deploying Frontend to Cloud Run...${NC}"
+gcloud run deploy $FRONTEND_SERVICE_NAME \
+    --image $FRONTEND_IMAGE_NAME \
+    --platform managed \
+    --region $REGION \
+    --project $PROJECT_ID \
+    --allow-unauthenticated \
+    --memory 512Mi \
+    --cpu 1 \
+    --timeout 300 \
+    --concurrency 80 \
+    --max-instances 10 \
+    --set-env-vars="VITE_VECTOR_SEARCH_API_URL=$EXPRESS_SERVICE_URL" \
+    --set-env-vars-from-file=.env
+
+# Get Frontend service URL
+SERVICE_URL=$(gcloud run services describe $FRONTEND_SERVICE_NAME \
     --platform managed \
     --region $REGION \
     --project $PROJECT_ID \
@@ -75,15 +139,32 @@ SERVICE_URL=$(gcloud run services describe $SERVICE_NAME \
 echo -e "${GREEN}✅ Deployment completed successfully!${NC}"
 echo -e "${GREEN}🌐 Service URL: ${SERVICE_URL}${NC}"
 
-# Test the deployment
-echo -e "${YELLOW}🧪 Testing deployment...${NC}"
-if curl -f "${SERVICE_URL}/health" > /dev/null 2>&1; then
-    echo -e "${GREEN}✅ Health check passed!${NC}"
+# Test the deployments
+echo -e "${YELLOW}🧪 Testing deployments...${NC}"
+
+# Test Vector Search Service
+if curl -f "${VECTOR_SERVICE_URL}/health" > /dev/null 2>&1; then
+    echo -e "${GREEN}✅ Vector Search health check passed!${NC}"
 else
-    echo -e "${RED}❌ Health check failed!${NC}"
-    exit 1
+    echo -e "${RED}❌ Vector Search health check failed!${NC}"
 fi
 
-echo -e "${GREEN}🎉 Mebooks.ai vector search backend is now live!${NC}"
-echo -e "${YELLOW}📝 Update your frontend environment variables:${NC}"
-echo -e "REACT_APP_VECTOR_SEARCH_API_URL=${SERVICE_URL}" 
+# Test Express Backend Service
+if curl -f "${EXPRESS_SERVICE_URL}/api/health" > /dev/null 2>&1; then
+    echo -e "${GREEN}✅ Express Backend health check passed!${NC}"
+else
+    echo -e "${RED}❌ Express Backend health check failed!${NC}"
+fi
+
+# Test Frontend Service
+if curl -f "${SERVICE_URL}" > /dev/null 2>&1; then
+    echo -e "${GREEN}✅ Frontend health check passed!${NC}"
+else
+    echo -e "${RED}❌ Frontend health check failed!${NC}"
+fi
+
+echo -e "${GREEN}🎉 Mebooks.ai full-stack application is now live!${NC}"
+echo -e "${YELLOW}📝 Service URLs:${NC}"
+echo -e "Frontend: ${SERVICE_URL}"
+echo -e "Express Backend: ${EXPRESS_SERVICE_URL}"
+echo -e "Vector Search: ${VECTOR_SERVICE_URL}" 
