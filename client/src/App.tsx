@@ -1,80 +1,93 @@
-import React from "react";
-import { Switch, Route } from "wouter";
+import { useState } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
-import { Toaster } from "./components/ui/toaster";
-import { TooltipProvider } from "./components/ui/tooltip";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { TechBackground } from "./components/TechBackground";
 import HomePage from "./pages/HomePage";
-import WhyWeDoPage from "./pages/about/WhyWeDoPage";
-import WhatWeDoPage from "./pages/about/WhatWeDoPage";
-import HowWeDoPage from "./pages/about/HowWeDoPage";
-import HowItWorksPage from "./pages/HowItWorksPage";
-import AuthorsPage from "./pages/AuthorsPage";
-import SeekersPage from "./pages/SeekersPage";
-import SellEbooksPage from "./pages/authors/SellEbooksPage";
-import AuthorsHowItWorksPage from "./pages/howItWorks/AuthorsHowItWorksPage";
-import SeekersHowItWorksPage from "./pages/howItWorks/SeekersHowItWorksPage";
-import UpSkillPage from "./pages/seekers/UpSkillPage";
-import SearchPage from "./pages/seekers/SearchPage";
-import NotFound from "./pages/not-found";
-
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={HomePage} />
-      
-      {/* About routes */}
-      <Route path="/about/why-we-do" component={WhyWeDoPage} />
-      <Route path="/about/what-we-do" component={WhatWeDoPage} />
-      <Route path="/about/how-we-do" component={HowWeDoPage} />
-      
-      {/* Authors routes */}
-      <Route path="/authors" component={AuthorsPage} />
-      <Route path="/authors/sell-ebooks" component={SellEbooksPage} />
-      
-      {/* How It Works routes */}
-      <Route path="/how-it-works" component={HowItWorksPage} />
-      <Route path="/how-it-works/authors" component={AuthorsHowItWorksPage} />
-      <Route path="/how-it-works/seekers" component={SeekersHowItWorksPage} />
-      
-      {/* Seekers routes */}
-      <Route path="/seekers" component={SeekersPage} />
-      <Route path="/seekers/upskill" component={UpSkillPage} />
-      <Route path="/seekers/search" component={SearchPage} />
-      
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
 
 function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <div className="min-h-screen flex flex-col" style={{backgroundColor: '#0f0f23', color: '#ffffff'}}>
-          <TechBackground />
-          <Header />
-          <main className="flex-1 relative z-10">
-            <Router />
-          </main>
-          
-          {/* Description Section Above Footer */}
-          <section className="relative z-10 py-8 bg-neural-secondary/30">
-            <div className="container mx-auto px-4 text-center">
-              <p className="text-lg md:text-xl text-text-secondary max-w-3xl mx-auto" style={{color: '#94a3b8'}}>
-                Go from idea to expert with curated ebooks on AI, Product, and Engineering. 
-                Find exactly what you need with our intelligent search.
+  const [currentPage, setCurrentPage] = useState('/');
+
+  const handleNavigate = (path: string) => {
+    setCurrentPage(path);
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case '/':
+        return <HomePage />;
+      case '/about':
+        return (
+          <div className="min-h-screen pt-16">
+            <div className="max-w-4xl mx-auto px-4 py-16">
+              <h1 className="text-4xl font-bold text-ai-blue mb-8">About Mebooks.ai</h1>
+              <p className="text-lg text-gray-700 mb-6">
+                Mebooks.ai is your premier destination for AI-focused educational content.
+              </p>
+              <p className="text-lg text-gray-700">
+                We connect knowledge seekers with expert authors in the AI field through our unique $0.25 flat-fee model.
               </p>
             </div>
-          </section>
-          
-          <Footer />
-        </div>
-        <Toaster />
-      </TooltipProvider>
+          </div>
+        );
+      case '/authors':
+        return (
+          <div className="min-h-screen pt-16">
+            <div className="max-w-4xl mx-auto px-4 py-16">
+              <h1 className="text-4xl font-bold text-ai-blue mb-8">Authors</h1>
+              <p className="text-lg text-gray-700 mb-6">
+                Join our community of expert authors and share your knowledge with the world.
+              </p>
+              <p className="text-lg text-gray-700">
+                Earn from your expertise with our transparent revenue sharing model.
+              </p>
+            </div>
+          </div>
+        );
+      case '/how-it-works':
+        return (
+          <div className="min-h-screen pt-16">
+            <div className="max-w-4xl mx-auto px-4 py-16">
+              <h1 className="text-4xl font-bold text-ai-blue mb-8">How It Works</h1>
+              <p className="text-lg text-gray-700 mb-6">
+                Our platform makes it easy to discover, purchase, and access AI-focused educational content.
+              </p>
+              <p className="text-lg text-gray-700">
+                With our $0.25 flat fee model, learning is accessible to everyone.
+              </p>
+            </div>
+          </div>
+        );
+      case '/seekers':
+        return (
+          <div className="min-h-screen pt-16">
+            <div className="max-w-4xl mx-auto px-4 py-16">
+              <h1 className="text-4xl font-bold text-ai-blue mb-8">Knowledge Seekers</h1>
+              <p className="text-lg text-gray-700 mb-6">
+                Discover curated AI and technology resources from industry experts.
+              </p>
+              <p className="text-lg text-gray-700">
+                Upskill with our comprehensive library of ebooks and learning materials.
+              </p>
+            </div>
+          </div>
+        );
+      default:
+        return <HomePage />;
+    }
+  };
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <div className="min-h-screen bg-gradient-to-br from-ai-bg-start to-ai-bg-end relative overflow-hidden">
+        <TechBackground />
+        <Header onNavigate={handleNavigate} />
+        <main className="relative z-10">
+          {renderPage()}
+        </main>
+        <Footer />
+      </div>
     </QueryClientProvider>
   );
 }
