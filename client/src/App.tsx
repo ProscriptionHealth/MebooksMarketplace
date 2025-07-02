@@ -1,24 +1,25 @@
+import React from "react";
 import { Switch, Route } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { TechBackground } from "@/components/TechBackground";
-import HomePage from "@/pages/HomePage";
-import WhyWeDoPage from "@/pages/about/WhyWeDoPage";
-import WhatWeDoPage from "@/pages/about/WhatWeDoPage";
-import HowWeDoPage from "@/pages/about/HowWeDoPage";
-import HowItWorksPage from "@/pages/HowItWorksPage";
-import AuthorsPage from "@/pages/AuthorsPage";
-import SeekersPage from "@/pages/SeekersPage";
-import SellEbooksPage from "@/pages/authors/SellEbooksPage";
-import AuthorsHowItWorksPage from "@/pages/howItWorks/AuthorsHowItWorksPage";
-import SeekersHowItWorksPage from "@/pages/howItWorks/SeekersHowItWorksPage";
-import UpSkillPage from "@/pages/seekers/UpSkillPage";
-import SearchPage from "@/pages/seekers/SearchPage";
-import NotFound from "@/pages/not-found";
+import { Toaster } from "./components/ui/toaster";
+import { TooltipProvider } from "./components/ui/tooltip";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { TechBackground } from "./components/TechBackground";
+import HomePage from "./pages/HomePage";
+import WhyWeDoPage from "./pages/about/WhyWeDoPage";
+import WhatWeDoPage from "./pages/about/WhatWeDoPage";
+import HowWeDoPage from "./pages/about/HowWeDoPage";
+import HowItWorksPage from "./pages/HowItWorksPage";
+import AuthorsPage from "./pages/AuthorsPage";
+import SeekersPage from "./pages/SeekersPage";
+import SellEbooksPage from "./pages/authors/SellEbooksPage";
+import AuthorsHowItWorksPage from "./pages/howItWorks/AuthorsHowItWorksPage";
+import SeekersHowItWorksPage from "./pages/howItWorks/SeekersHowItWorksPage";
+import UpSkillPage from "./pages/seekers/UpSkillPage";
+import SearchPage from "./pages/seekers/SearchPage";
+import NotFound from "./pages/not-found";
 
 function Router() {
   return (
