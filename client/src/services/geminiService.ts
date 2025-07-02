@@ -1,4 +1,5 @@
 import { GeminiSearchResponse, Ebook, DbEbook } from '../types';
+import { mockEbooks } from '../data/mockEbooks';
 
 // Author lookup map (matches server)
 const authors: Record<number, string> = {
@@ -50,14 +51,14 @@ export async function analyzeSearchQuery(query: string): Promise<GeminiSearchRes
   }
 }
 
-// Database search function using backend API
+// Database search function using backend API with mock fallback
 export async function findEbooksByTopics(topics: string[]): Promise<Ebook[]> {
   try {
-    // If no topics, get all ebooks
+    // Try API first
     if (topics.length === 0) {
       const response = await fetch('/api/ebooks');
       if (!response.ok) {
-        throw new Error('Failed to fetch ebooks');
+        throw new Error('API not available');
       }
       const dbEbooks: DbEbook[] = await response.json();
       return dbEbooks.map(convertDbEbookToClientEbook);
@@ -67,14 +68,30 @@ export async function findEbooksByTopics(topics: string[]): Promise<Ebook[]> {
     const searchQuery = topics.join(' ');
     const response = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`);
     if (!response.ok) {
-      throw new Error('Failed to search ebooks');
+      throw new Error('API not available');
     }
     const dbEbooks: DbEbook[] = await response.json();
     return dbEbooks.map(convertDbEbookToClientEbook);
   } catch (error) {
-    console.error('Database search failed:', error);
-    // Return empty array on error
-    return [];
+    console.log('Using mock data (API not available)');
+    
+    // Fallback to mock data with filtering
+    if (topics.length === 0) {
+      return mockEbooks;
+    }
+
+    // Filter mock ebooks based on topics
+    const searchTerms = topics.map(topic => topic.toLowerCase());
+    return mockEbooks.filter(ebook => {
+      const searchableText = [
+        ebook.title,
+        ebook.description,
+        ebook.category,
+        ...ebook.frameworkTags
+      ].join(' ').toLowerCase();
+      
+      return searchTerms.some(term => searchableText.includes(term));
+    });
   }
 }
 

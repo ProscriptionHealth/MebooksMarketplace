@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
+  darkMode: "class",
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -61,6 +61,20 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+        // AI-themed colors
+        "ai-teal": "var(--ai-teal)",
+        "ai-blue": "var(--ai-blue)",
+        "ai-purple": "var(--ai-purple)",
+        "ai-amber": "var(--ai-amber)",
+        "ai-pink": "var(--ai-pink)",
+        "ai-bg-start": "var(--ai-bg-start)",
+        "ai-bg-end": "var(--ai-bg-end)",
+        "neural-bg": "var(--neural-bg)",
+        "neural-secondary": "var(--neural-secondary)",
+        "neural-tertiary": "var(--neural-tertiary)",
+        "text-primary": "var(--text-primary)",
+        "text-secondary": "var(--text-secondary)",
+        "text-muted": "var(--text-muted)",
       },
       keyframes: {
         "accordion-down": {
