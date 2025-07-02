@@ -7,6 +7,9 @@ interface HeroProps {
 }
 
 export const Hero = ({ onSearch, isSearching }: HeroProps) => {
+  const handleSearch = (query: string) => {
+    onSearch(query);
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
@@ -33,10 +36,10 @@ export const Hero = ({ onSearch, isSearching }: HeroProps) => {
       </div>
 
       {/* Search Section - Centered */}
-      <div className="w-full text-center">
+      <div className="w-full max-w-xl mx-auto text-center">
         {/* Search Bar */}
         <div className="mb-4">
-          <SearchBar onSearch={onSearch} isLoading={isSearching} />
+          <SearchBar onSearch={handleSearch} isLoading={isSearching} />
         </div>
 
         {/* Search Examples */}
