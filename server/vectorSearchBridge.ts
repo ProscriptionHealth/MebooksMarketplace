@@ -4,6 +4,7 @@
  */
 
 import { Ebook } from "@shared/schema";
+import { redisClient } from "./redisClient";
 
 // Python FastAPI service configuration
 const VECTOR_SEARCH_SERVICE_URL = process.env.VECTOR_SEARCH_SERVICE_URL || 'http://localhost:8000';
@@ -75,6 +76,16 @@ export class VectorSearchBridge {
     numResults?: number;
     similarityThreshold?: number;
   } = {}): Promise<Ebook[]> {
+    // Create cache key including options
+    const cacheKey = `${query}_${JSON.stringify(options)}`;
+    
+    // Check cache first
+    const cachedResults = await redisClient.getCachedVectorSearchResults(cacheKey);
+    if (cachedResults) {
+      console.log('Vector search: Using cached results');
+      return cachedResults;
+    }
+
     if (!this.isServiceAvailable) {
       await this.checkServiceHealth();
       if (!this.isServiceAvailable) {
@@ -106,7 +117,12 @@ export class VectorSearchBridge {
       }
 
       const pythonResults: PythonSearchResult[] = await response.json();
-      return pythonResults.map(this.convertPythonResultToEbook);
+      const results = pythonResults.map(this.convertPythonResultToEbook);
+      
+      // Cache the results
+      await redisClient.cacheVectorSearchResults(cacheKey, results);
+      
+      return results;
     } catch (error) {
       console.error('Semantic search error:', error);
       throw error;
@@ -156,6 +172,13 @@ export class VectorSearchBridge {
    * Get similar ebooks based on ebook ID
    */
   async getSimilarEbooks(ebookId: string, numResults: number = 10): Promise<Ebook[]> {
+    // Check cache first
+    const cachedResults = await redisClient.getCachedSimilarEbooks(ebookId);
+    if (cachedResults) {
+      console.log('Vector search: Using cached similar ebooks');
+      return cachedResults.slice(0, numResults);
+    }
+
     if (!this.isServiceAvailable) {
       await this.checkServiceHealth();
       if (!this.isServiceAvailable) {
@@ -173,7 +196,12 @@ export class VectorSearchBridge {
       }
 
       const pythonResults: PythonSearchResult[] = await response.json();
-      return pythonResults.map(this.convertPythonResultToEbook);
+      const results = pythonResults.map(this.convertPythonResultToEbook);
+      
+      // Cache the results
+      await redisClient.cacheSimilarEbooks(ebookId, results);
+      
+      return results;
     } catch (error) {
       console.error('Similar ebooks search error:', error);
       throw error;

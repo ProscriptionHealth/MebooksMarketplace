@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { redisClient } from "./redisClient";
 
 const app = express();
 app.use(express.json());
@@ -39,6 +40,14 @@ app.use((req, res, next) => {
 
 (async () => {
   try {
+    // Initialize Redis connection (graceful fallback if unavailable)
+    try {
+      await redisClient.connect();
+      log('Redis cache initialized successfully');
+    } catch (redisError) {
+      log('Redis cache unavailable - running without caching', 'warning');
+    }
+    
     const server = await registerRoutes(app);
 
     // Error handling middleware

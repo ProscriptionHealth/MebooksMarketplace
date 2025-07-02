@@ -17,6 +17,7 @@ Mebooks.ai is a specialized AI-focused ebook marketplace with a unique $0.25 fla
 - **Server**: Express.js with TypeScript
 - **Database**: PostgreSQL with Drizzle ORM
 - **Database Provider**: Neon Database (serverless PostgreSQL)
+- **Caching**: Redis for search results, vector embeddings, and session data
 - **API Design**: RESTful endpoints with JSON responses
 - **Build**: ESBuild for server-side bundling
 

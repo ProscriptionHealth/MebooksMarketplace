@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { vectorSearchBridge } from "./vectorSearchBridge";
+import { redisClient } from "./redisClient";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
@@ -123,6 +124,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error('Ebook upload error:', error);
       res.status(500).json({ 
         message: "Failed to upload ebook" 
+      });
+    }
+  });
+
+  // Redis cache management endpoints
+  app.get("/api/cache/stats", async (_req, res) => {
+    try {
+      const stats = await redisClient.getCacheStats();
+      res.json(stats);
+    } catch (error) {
+      console.error('Cache stats error:', error);
+      res.status(500).json({ 
+        message: "Failed to get cache statistics" 
+      });
+    }
+  });
+
+  app.delete("/api/cache/clear", async (_req, res) => {
+    try {
+      await redisClient.clearAllCache();
+      res.json({ 
+        success: true, 
+        message: "Cache cleared successfully" 
+      });
+    } catch (error) {
+      console.error('Cache clear error:', error);
+      res.status(500).json({ 
+        message: "Failed to clear cache" 
       });
     }
   });

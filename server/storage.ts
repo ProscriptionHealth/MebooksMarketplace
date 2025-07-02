@@ -1,4 +1,5 @@
 import { Ebook } from "@shared/schema";
+import { redisClient } from "./redisClient";
 
 export interface IStorage {
   searchEbooks(query: string): Promise<Ebook[]>;
@@ -124,12 +125,24 @@ export class MemStorage implements IStorage {
   }
 
   async searchEbooks(query: string): Promise<Ebook[]> {
+    // Check cache first
+    const cachedResults = await redisClient.getCachedSearchResults(query);
+    if (cachedResults) {
+      console.log('Storage: Using cached search results');
+      return cachedResults;
+    }
+
+    // Perform search
     const searchTerms = query.toLowerCase().split(' ');
-    
-    return this.ebooks.filter(ebook => {
+    const results = this.ebooks.filter(ebook => {
       const searchableText = `${ebook.title} ${ebook.description} ${ebook.category} ${ebook.frameworkTags?.join(' ')}`.toLowerCase();
       return searchTerms.some(term => searchableText.includes(term));
     });
+
+    // Cache the results
+    await redisClient.cacheSearchResults(query, results);
+    
+    return results;
   }
 
   async getAllEbooks(): Promise<Ebook[]> {
