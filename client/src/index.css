@@ -36,10 +36,6 @@
   --neural-secondary: #1a1a3e;
   --neural-tertiary: #16213e;
   
-  /* Gradient backgrounds */
-  --ai-bg-start: #0f0f23;
-  --ai-bg-end: #1a1a3e;
-  
   /* Text hierarchy - exact from original */
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
@@ -85,16 +81,6 @@
   
   .text-ai-blue {
     color: var(--ai-blue);
-  }
-  
-  .from-ai-bg-start {
-    --tw-gradient-from: var(--ai-bg-start) var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(15 15 35 / 0) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  }
-  
-  .to-ai-bg-end {
-    --tw-gradient-to: var(--ai-bg-end) var(--tw-gradient-to-position);
   }
   
   .text-ai-purple {

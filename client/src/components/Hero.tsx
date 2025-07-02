@@ -7,6 +7,9 @@ interface HeroProps {
 }
 
 export const Hero = ({ onSearch, isSearching }: HeroProps) => {
+  const handleExampleSearch = (query: string) => {
+    onSearch(query);
+  };
 
   return (
     <div>

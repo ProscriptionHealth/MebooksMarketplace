@@ -8,8 +8,7 @@ export default defineConfig({
     react(),
     runtimeErrorOverlay(),
     ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined &&
-    process.env.DISABLE_CARTOGRAPHER !== "true"
+    process.env.REPL_ID !== undefined
       ? [
           await import("@replit/vite-plugin-cartographer").then((m) =>
             m.cartographer(),
@@ -30,17 +29,9 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    host: "0.0.0.0",
-    port: 5000,
-    allowedHosts: [
-      "localhost",
-      ".replit.dev",
-      ".repl.co",
-      "4ee380d1-4126-45eb-8571-8fb25f3839e0-00-2e0intcgihxkv.worf.replit.dev"
-    ],
     fs: {
-      strict: false,
-      allow: [".."],
+      strict: true,
+      deny: ["**/.*"],
     },
   },
 });
