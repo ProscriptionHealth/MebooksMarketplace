@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 import { spawn } from 'child_process';
 
-// Set NODE_ENV to development for proper Vite integration
+// Set environment
+process.env.NODE_ENV = 'development';
+
+// Start the Express server which includes Vite
 const server = spawn('npx', ['tsx', 'server/index.ts'], {
   stdio: 'inherit',
-  env: { ...process.env, NODE_ENV: 'development' }
+  env: process.env
 });
 
 server.on('error', (error) => {
@@ -12,18 +15,11 @@ server.on('error', (error) => {
   process.exit(1);
 });
 
-server.on('close', (code) => {
-  console.log(`Server process exited with code ${code}`);
-  process.exit(code);
-});
-
 // Handle graceful shutdown
 process.on('SIGINT', () => {
-  console.log('\nShutting down server...');
   server.kill('SIGINT');
 });
 
 process.on('SIGTERM', () => {
-  console.log('\nShutting down server...');
   server.kill('SIGTERM');
 });
