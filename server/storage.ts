@@ -1,4 +1,4 @@
-import { Ebook, ComplexityRating } from "@shared/schema";
+import { Ebook } from "@shared/schema";
 
 export interface IStorage {
   searchEbooks(query: string): Promise<Ebook[]>;
@@ -6,15 +6,15 @@ export interface IStorage {
   getEbookById(id: string): Promise<Ebook | undefined>;
 }
 
-// Author lookup map
-const authors: Record<number, string> = {
-  1: 'Dr. Sarah Chen',
-  2: 'Prof. Michael Rodriguez', 
-  3: 'Dr. Emma Thompson',
-  4: 'Dr. James Park',
-  5: 'Lisa Wang',
-  6: 'Dr. Robert Kim'
-};
+// Author lookup map (currently unused but available for future use)
+// const authors: Record<number, string> = {
+//   1: 'Dr. Sarah Chen',
+//   2: 'Prof. Michael Rodriguez', 
+//   3: 'Dr. Emma Thompson',
+//   4: 'Dr. James Park',
+//   5: 'Lisa Wang',
+//   6: 'Dr. Robert Kim'
+// };
 
 // Mock ebooks data for development
 const mockEbooks: Ebook[] = [

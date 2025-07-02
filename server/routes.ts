@@ -5,7 +5,7 @@ import { vectorSearchBridge } from "./vectorSearchBridge";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
-  app.get("/api/health", (req, res) => {
+  app.get("/api/health", (_req, res) => {
     res.json({ 
       status: "ok", 
       timestamp: new Date().toISOString(),
@@ -54,7 +54,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get all ebooks
-  app.get("/api/ebooks", async (req, res) => {
+  app.get("/api/ebooks", async (_req, res) => {
     try {
       const ebooks = await storage.getAllEbooks();
       res.json(ebooks);
@@ -98,7 +98,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Vector search service status endpoint
-  app.get("/api/search/status", async (req, res) => {
+  app.get("/api/search/status", async (_req, res) => {
     try {
       const status = await vectorSearchBridge.getServiceStatus();
       res.json(status);
@@ -111,7 +111,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Upload ebook for vector indexing (for future use)
-  app.post("/api/ebooks/upload", async (req, res) => {
+  app.post("/api/ebooks/upload", async (_req, res) => {
     try {
       // This would handle file upload and indexing
       // For now, return a placeholder response

@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { BookOpenIcon } from './icons/BookOpenIcon';
 import { ChevronDownIcon } from './icons/ChevronDownIcon';
 
 export const Header = () => {
-  const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
