@@ -13,54 +13,10 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://mebooks.ai" />
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter and JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'ai-teal': '#00d4aa',
-              'ai-blue': '#0ea5e9',
-              'ai-purple': '#8b5cf6',
-              'ai-amber': '#f59e0b',
-              'ai-pink': '#ec4899',
-              'neural-bg': '#0f0f23',
-              'neural-secondary': '#1a1a3e',
-              'neural-tertiary': '#16213e',
-              'text-primary': '#ffffff',
-              'text-secondary': '#94a3b8',
-              'text-muted': '#64748b',
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'monospace'],
-            },
-            animation: {
-              'gradient-bg': 'gradient-bg 5s ease infinite',
-              'subtle-pulse': 'subtle-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'fade-in': 'fade-in 0.5s ease-in-out',
-            },
-            keyframes: {
-              'gradient-bg': {
-                '0%, 100%': { 'background-position': '0% 50%' },
-                '50%': { 'background-position': '100% 50%' },
-              },
-               'subtle-pulse': {
-                '0%, 100%': { opacity: 1 },
-                '50%': { opacity: .7 },
-              },
-              'fade-in': {
-                '0%': { opacity: 0, transform: 'translateY(10px)' },
-                '100%': { opacity: 1, transform: 'translateY(0)' },
-              },
-            }
-          }
-        }
-      }
-    </script>
   <script type="importmap">
 {
   "imports": {
@@ -71,9 +27,8 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-neural-bg">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
