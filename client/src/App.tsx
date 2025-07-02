@@ -29,7 +29,7 @@ function Router() {
       <Route path="/about/why-we-do" component={WhyWeDoPage} />
       <Route path="/about/what-we-do" component={WhatWeDoPage} />
       <Route path="/about/how-we-do" component={HowWeDoPage} />
-      
+    
       {/* Authors routes */}
       <Route path="/authors" component={AuthorsPage} />
       <Route path="/authors/sell-ebooks" component={SellEbooksPage} />

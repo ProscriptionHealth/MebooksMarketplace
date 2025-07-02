@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Hero } from '@/components/Hero';
 import { EbookList } from '@/components/EbookList';
-import { analyzeSearchQuery, findEbooksByTopics } from '@/services/geminiService';
+import { performEnhancedSearch } from '@/services/geminiService';
 import { Ebook, GeminiSearchResponse } from '@/types';
 
 export default function HomePage() {
@@ -13,12 +13,9 @@ export default function HomePage() {
   const handleSearch = async (query: string) => {
     setIsSearching(true);
     try {
-      // Analyze query with Gemini AI
-      const response = await analyzeSearchQuery(query);
-      setGeminiResponse(response);
-
-      // Find ebooks based on topics
-      const ebooks = await findEbooksByTopics(response.ebook_topics);
+      // Use enhanced search which combines Gemini analysis with vector search
+      const { geminiResponse, ebooks } = await performEnhancedSearch(query);
+      setGeminiResponse(geminiResponse);
       setSearchResults(ebooks);
       setHasSearched(true);
 

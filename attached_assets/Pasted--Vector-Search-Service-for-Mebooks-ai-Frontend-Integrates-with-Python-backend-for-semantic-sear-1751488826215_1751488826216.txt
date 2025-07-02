@@ -1,0 +1,316 @@
+/ Vector Search Service for Mebooks.ai Frontend
+// Integrates with Python backend for semantic search
+
+import { Ebook, GeminiSearchResponse } from '../types';
+
+// Search result interface
+export interface VectorSearchResult {
+  ebook_id: string;
+  title: string;
+  author: string;
+  category: string;
+  complexity: string;
+  similarity_score: number;
+  relevant_chunks: string[];
+  semantic_summary: string;
+  keywords: string[];
+}
+
+// Search filters interface
+export interface SearchFilters {
+  category?: string;
+  complexity?: string;
+  author?: string;
+  price_range?: {
+    min: number;
+    max: number;
+  };
+  frameworks?: string[];
+}
+
+// Search query interface
+export interface SearchQuery {
+  text: string;
+  filters: SearchFilters;
+  num_results: number;
+  similarity_threshold: number;
+}
+
+// Vector search service class
+export class VectorSearchService {
+  private baseUrl: string;
+  private apiKey: string;
+
+  constructor() {
+    this.baseUrl = process.env.REACT_APP_VECTOR_SEARCH_API_URL || 'http://localhost:8000';
+    this.apiKey = process.env.REACT_APP_VECTOR_SEARCH_API_KEY || '';
+  }
+
+  // Generate headers for API requests
+  private getHeaders(): HeadersInit {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.apiKey}`,
+    };
+  }
+
+  // Perform semantic search
+  async searchEbooks(query: SearchQuery): Promise<VectorSearchResult[]> {
+    try {
+      const response = await fetch(`${this.baseUrl}/api/search`, {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify(query),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Search failed: ${response.statusText}`);
+      }
+
+      const results = await response.json();
+      return results.map((result: any) => ({
+        ebook_id: result.ebook_id,
+        title: result.title,
+        author: result.author,
+        category: result.category,
+        complexity: result.complexity,
+        similarity_score: result.similarity_score,
+        relevant_chunks: result.relevant_chunks,
+        semantic_summary: result.semantic_summary,
+        keywords: result.keywords,
+      }));
+    } catch (error) {
+      console.error('Vector search error:', error);
+      throw new Error('Failed to perform semantic search');
+    }
+  }
+
+  // Perform hybrid search (semantic + keyword)
+  async hybridSearch(
+    query: string,
+    filters: SearchFilters = {},
+    numResults: number = 10
+  ): Promise<VectorSearchResult[]> {
+    try {
+      const searchQuery: SearchQuery = {
+        text: query,
+        filters,
+        num_results: numResults,
+        similarity_threshold: 0.5,
+      };
+
+      const response = await fetch(`${this.baseUrl}/api/hybrid-search`, {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify(searchQuery),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Hybrid search failed: ${response.statusText}`);
+      }
+
+      const results = await response.json();
+      return results.map((result: any) => ({
+        ebook_id: result.ebook_id,
+        title: result.title,
+        author: result.author,
+        category: result.category,
+        complexity: result.complexity,
+        similarity_score: result.similarity_score,
+        relevant_chunks: result.relevant_chunks,
+        semantic_summary: result.semantic_summary,
+        keywords: result.keywords,
+      }));
+    } catch (error) {
+      console.error('Hybrid search error:', error);
+      throw new Error('Failed to perform hybrid search');
+    }
+  }
+
+  // Get similar ebooks
+  async getSimilarEbooks(ebookId: string, numResults: number = 5): Promise<VectorSearchResult[]> {
+    try {
+      const response = await fetch(`${this.baseUrl}/api/similar/${ebookId}?num_results=${numResults}`, {
+        method: 'GET',
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Similar ebooks search failed: ${response.statusText}`);
+      }
+
+      const results = await response.json();
+      return results.map((result: any) => ({
+        ebook_id: result.ebook_id,
+        title: result.title,
+        author: result.author,
+        category: result.category,
+        complexity: result.complexity,
+        similarity_score: result.similarity_score,
+        relevant_chunks: result.relevant_chunks,
+        semantic_summary: result.semantic_summary,
+        keywords: result.keywords,
+      }));
+    } catch (error) {
+      console.error('Similar ebooks search error:', error);
+      throw new Error('Failed to get similar ebooks');
+    }
+  }
+
+  // Get personalized recommendations
+  async getRecommendations(userId: string, numResults: number = 10): Promise<VectorSearchResult[]> {
+    try {
+      const response = await fetch(`${this.baseUrl}/api/recommendations/${userId}?num_results=${numResults}`, {
+        method: 'GET',
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Recommendations failed: ${response.statusText}`);
+      }
+
+      const results = await response.json();
+      return results.map((result: any) => ({
+        ebook_id: result.ebook_id,
+        title: result.title,
+        author: result.author,
+        category: result.category,
+        complexity: result.complexity,
+        similarity_score: result.similarity_score,
+        relevant_chunks: result.relevant_chunks,
+        semantic_summary: result.semantic_summary,
+        keywords: result.keywords,
+      }));
+    } catch (error) {
+      console.error('Recommendations error:', error);
+      throw new Error('Failed to get recommendations');
+    }
+  }
+
+  // Get popular ebooks
+  async getPopularEbooks(numResults: number = 10): Promise<VectorSearchResult[]> {
+    try {
+      const response = await fetch(`${this.baseUrl}/api/popular?num_results=${numResults}`, {
+        method: 'GET',
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Popular ebooks failed: ${response.statusText}`);
+      }
+
+      const results = await response.json();
+      return results.map((result: any) => ({
+        ebook_id: result.ebook_id,
+        title: result.title,
+        author: result.author,
+        category: result.category,
+        complexity: result.complexity,
+        similarity_score: result.similarity_score,
+        relevant_chunks: result.relevant_chunks,
+        semantic_summary: result.semantic_summary,
+        keywords: result.keywords,
+      }));
+    } catch (error) {
+      console.error('Popular ebooks error:', error);
+      throw new Error('Failed to get popular ebooks');
+    }
+  }
+
+  // Search by category
+  async searchByCategory(category: string, numResults: number = 20): Promise<VectorSearchResult[]> {
+    try {
+      const filters: SearchFilters = { category };
+      const searchQuery: SearchQuery = {
+        text: category,
+        filters,
+        num_results: numResults,
+        similarity_threshold: 0.3,
+      };
+
+      return await this.searchEbooks(searchQuery);
+    } catch (error) {
+      console.error('Category search error:', error);
+      throw new Error('Failed to search by category');
+    }
+  }
+
+  // Search by complexity level
+  async searchByComplexity(complexity: string, numResults: number = 20): Promise<VectorSearchResult[]> {
+    try {
+      const filters: SearchFilters = { complexity };
+      const searchQuery: SearchQuery = {
+        text: complexity,
+        filters,
+        num_results: numResults,
+        similarity_threshold: 0.3,
+      };
+
+      return await this.searchEbooks(searchQuery);
+    } catch (error) {
+      console.error('Complexity search error:', error);
+      throw new Error('Failed to search by complexity');
+    }
+  }
+
+  // Advanced search with multiple filters
+  async advancedSearch(
+    query: string,
+    filters: SearchFilters,
+    numResults: number = 20
+  ): Promise<VectorSearchResult[]> {
+    try {
+      const searchQuery: SearchQuery = {
+        text: query,
+        filters,
+        num_results: numResults,
+        similarity_threshold: 0.4,
+      };
+
+      return await this.searchEbooks(searchQuery);
+    } catch (error) {
+      console.error('Advanced search error:', error);
+      throw new Error('Failed to perform advanced search');
+    }
+  }
+}
+
+// Create singleton instance
+export const vectorSearchService = new VectorSearchService();
+
+// Enhanced search function that combines Gemini analysis with vector search
+export async function enhancedSearch(
+  query: string,
+  geminiResponse: GeminiSearchResponse | null = null
+): Promise<Ebook[]> {
+  try {
+    // Use Gemini response topics if available, otherwise use the query directly
+    const searchText = geminiResponse?.ebook_topics?.join(' ') || query;
+    
+    // Perform vector search
+    const vectorResults = await vectorSearchService.hybridSearch(searchText, {}, 20);
+    
+    // Convert vector results to Ebook format
+    const ebooks: Ebook[] = vectorResults.map(result => ({
+      id: result.ebook_id,
+      title: result.title,
+      description: result.semantic_summary,
+      author: result.author,
+      price: 0, // Will be fetched from database
+      coverUrl: '', // Will be fetched from database
+      category: result.category,
+      complexity: result.complexity as any,
+      frameworkTags: result.keywords,
+      pageCount: 0, // Will be fetched from database
+    }));
+    
+    return ebooks;
+  } catch (error) {
+    console.error('Enhanced search error:', error);
+    // Return empty array as fallback
+    return [];
+  }
+}
+
+// Export default instance
+export default vectorSearchService; 

@@ -1,4 +1,5 @@
 import { GeminiSearchResponse, Ebook, DbEbook } from '../types';
+import { enhancedSearch } from './vectorSearchService';
 
 // Author lookup map (matches server)
 const authors: Record<number, string> = {
@@ -50,7 +51,7 @@ export async function analyzeSearchQuery(query: string): Promise<GeminiSearchRes
   }
 }
 
-// Database search function using backend API
+// Enhanced database search function using vector search when available
 export async function findEbooksByTopics(topics: string[]): Promise<Ebook[]> {
   try {
     // If no topics, get all ebooks
@@ -63,8 +64,16 @@ export async function findEbooksByTopics(topics: string[]): Promise<Ebook[]> {
       return dbEbooks.map(convertDbEbookToClientEbook);
     }
 
-    // Search for ebooks based on topics
+    // Use enhanced search which tries vector search first, then falls back
     const searchQuery = topics.join(' ');
+    const results = await enhancedSearch(searchQuery);
+    
+    // If enhanced search returned results, use them
+    if (results.length > 0) {
+      return results;
+    }
+    
+    // Final fallback to direct API search
     const response = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`);
     if (!response.ok) {
       throw new Error('Failed to search ebooks');
@@ -75,6 +84,41 @@ export async function findEbooksByTopics(topics: string[]): Promise<Ebook[]> {
     console.error('Database search failed:', error);
     // Return empty array on error
     return [];
+  }
+}
+
+// Enhanced search function that combines Gemini analysis with vector search
+export async function performEnhancedSearch(query: string): Promise<{
+  geminiResponse: GeminiSearchResponse;
+  ebooks: Ebook[];
+}> {
+  try {
+    // First, analyze the query with Gemini
+    const geminiResponse = await analyzeSearchQuery(query);
+    
+    // Then perform enhanced search using vector search if available
+    const ebooks = await enhancedSearch(query, geminiResponse);
+    
+    return {
+      geminiResponse,
+      ebooks
+    };
+  } catch (error) {
+    console.error('Enhanced search failed:', error);
+    
+    // Fallback to basic search
+    const fallbackResponse: GeminiSearchResponse = {
+      search_summary: `Search results for "${query}"`,
+      ebook_topics: [query],
+      is_bundle_suggestion: false
+    };
+    
+    const ebooks = await findEbooksByTopics([query]);
+    
+    return {
+      geminiResponse: fallbackResponse,
+      ebooks
+    };
   }
 }
 
