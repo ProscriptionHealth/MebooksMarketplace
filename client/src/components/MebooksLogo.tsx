@@ -8,8 +8,8 @@ export const MebooksLogo = () => {
             <span style={{color: '#f59e0b', textShadow: '0 0 15px rgba(245, 158, 11, 0.4)'}}>ebooks</span>
             <span style={{color: '#ec4899', textShadow: '0 0 15px rgba(236, 72, 153, 0.4)'}}>.ai</span>
           </span>
-          <span className="mx-4 text-3xl md:text-4xl transform md:transform-none rotate-90 md:rotate-0" style={{color: '#0ea5e9', textShadow: '0 0 15px rgba(14, 165, 233, 0.4)'}}>
-            &lt; -
+          <span className="mx-4 text-3xl md:text-4xl" style={{color: '#0ea5e9', textShadow: '0 0 15px rgba(14, 165, 233, 0.4)'}}>
+            &lt;-
           </span>
           <span className="font-mono text-xl md:text-2xl text-gray-200">
             <span className="text-2xl md:text-3xl font-bold" style={{color: '#ec4899', textShadow: '0 0 10px rgba(236, 72, 153, 0.3)'}}>{`{`}</span>

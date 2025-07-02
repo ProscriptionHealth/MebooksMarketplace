@@ -4,7 +4,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
     return (
-        <header className="w-full bg-white/80 backdrop-blur-md border-b border-ai-teal/10 sticky top-0 z-50">
+        <header className="w-full bg-neural-bg/90 backdrop-blur-md border-b border-ai-teal/20 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
@@ -23,25 +23,25 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                     <nav className="flex items-center space-x-8">
                         <button
                             onClick={() => onNavigate('/about')}
-                            className="text-gray-700 hover:text-ai-blue transition-colors duration-200"
+                            className="text-text-secondary hover:text-ai-teal transition-colors duration-200"
                         >
                             About
                         </button>
                         <button
                             onClick={() => onNavigate('/authors')}
-                            className="text-gray-700 hover:text-ai-blue transition-colors duration-200"
+                            className="text-text-secondary hover:text-ai-teal transition-colors duration-200"
                         >
                             Authors
                         </button>
                         <button
                             onClick={() => onNavigate('/how-it-works')}
-                            className="text-gray-700 hover:text-ai-blue transition-colors duration-200"
+                            className="text-text-secondary hover:text-ai-teal transition-colors duration-200"
                         >
                             How It Works
                         </button>
                         <button
                             onClick={() => onNavigate('/seekers')}
-                            className="text-gray-700 hover:text-ai-blue transition-colors duration-200"
+                            className="text-text-secondary hover:text-ai-teal transition-colors duration-200"
                         >
                             Seekers
                         </button>
