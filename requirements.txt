@@ -1,0 +1,45 @@
+# Core dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+python-dotenv==1.0.0
+
+# Google Cloud dependencies
+google-cloud-aiplatform==1.38.1
+google-cloud-storage==2.10.0
+google-cloud-bigquery==3.13.0
+google-auth==2.23.4
+google-auth-oauthlib==1.1.0
+google-auth-httplib2==0.1.1
+
+# AI and ML dependencies
+sentence-transformers==2.2.2
+transformers==4.35.2
+torch==2.1.1
+numpy==1.24.3
+scikit-learn==1.3.2
+
+# Text processing
+nltk==3.8.1
+PyPDF2==3.0.1
+PyMuPDF==1.23.8
+ebooklib==0.18.1
+
+# Async and concurrency
+asyncio==3.4.3
+aiofiles==23.2.1
+
+# Data processing
+pandas==2.1.3
+numpy==1.24.3
+
+# Logging and monitoring
+structlog==23.2.0
+
+# Development dependencies
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1 
