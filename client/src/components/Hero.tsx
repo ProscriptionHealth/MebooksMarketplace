@@ -33,7 +33,7 @@ export const Hero = ({ onSearch, isSearching }: HeroProps) => {
       </div>
 
       {/* Search Section - Centered */}
-      <div className="w-full max-w-2xl mx-auto text-center">
+      <div className="w-full text-center">
         {/* Search Bar */}
         <div className="mb-4">
           <SearchBar onSearch={onSearch} isLoading={isSearching} />

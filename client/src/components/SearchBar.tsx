@@ -18,7 +18,7 @@ export const SearchBar = ({ onSearch, isLoading = false }: SearchBarProps) => {
   };
 
   return (
-    <form className="relative" onSubmit={handleSubmit}>
+    <form className="relative max-w-2xl mx-auto" onSubmit={handleSubmit}>
       <textarea 
         value={query}
         onChange={(e) => setQuery(e.target.value)}
