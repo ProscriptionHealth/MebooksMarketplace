@@ -43,7 +43,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get ebook by ID
   app.get("/api/ebooks/:id", async (req, res) => {
     try {
-      const { id } = req.params;
+      const id = req.params.id;
+      if (!id) {
+        return res.status(400).json({ 
+          message: "Ebook ID is required" 
+        });
+      }
+      
       const ebook = await storage.getEbookById(id);
       
       if (!ebook) {
