@@ -8,14 +8,15 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client/src"),
-      "@/server": path.resolve(__dirname, "./server"),
     },
   },
   build: {
-    outDir: "../dist/client",
+    outDir: "dist",
     emptyOutDir: true,
   },
   server: {
+    host: "0.0.0.0",
+    port: 5000,
     proxy: {
       "/api": {
         target: "http://localhost:3001",

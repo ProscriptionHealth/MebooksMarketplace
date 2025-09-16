@@ -17,10 +17,9 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./client/src/*"],
-      "@/server/*": ["./server/*"]
+      "@/*": ["./client/src/*"]
     }
   },
-  "include": ["client/src", "server", "types.ts"],
+  "include": ["client/src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
