@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  # Client (Frontend)
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - VITE_API_URL=http://localhost:3001
+    depends_on:
+      - server
+    volumes:
+      - ./client/dist:/app/dist
+    networks:
+      - vebooks-network
+
+  # Server (Backend API)
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://vebooks:vebooks_password@postgres:5432/vebooks_db
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-super-secret-jwt-key-here
+      - GOOGLE_CLOUD_PROJECT_ID=your-project-id
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/google-cloud-key.json
+      - STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
+      - STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
+      - OPENAI_API_KEY=your-openai-api-key
+      - EMAIL_FROM=noreply@vebooks.ai
+      - EMAIL_HOST=smtp.gmail.com
+      - EMAIL_PORT=587
+      - EMAIL_USER=your-email@gmail.com
+      - EMAIL_PASS=your-app-password
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./server/uploads:/app/uploads
+      - ./credentials:/app/credentials:ro
+    networks:
+      - vebooks-network
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=vebooks_db
+      - POSTGRES_USER=vebooks
+      - POSTGRES_PASSWORD=vebooks_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    networks:
+      - vebooks-network
+
+  # Redis for Caching and Session Storage
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass redis_password
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - vebooks-network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./client/dist:/var/www/html:ro
+    depends_on:
+      - client
+      - server
+    networks:
+      - vebooks-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  vebooks-network:
+    driver: bridge
